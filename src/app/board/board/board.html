@@ -9,10 +9,23 @@
   </div>
 </section> -->
 
-<section class="board">
-  <h2>{{ board.name }}</h2>
-
-  <div class="columns">
+<section class="bg-[#20212C]">
+  <div
+    class="bg-[#2B2C37] text-white font-bold h-24 items-center flex gap-4 border-b border-[#3E3F4E] justify-between px-8"
+  >
+    <h2 class="text-2xl">{{ board.name }}</h2>
+    <div class="flex items-center justify-center gap-2">
+      <button
+        class="text-sm rounded-3xl py-3.5 px-6 bg-[#635FC7] hover:bg-[#A8A4FF] cursor-pointer"
+      >
+        + Add New Task
+      </button>
+      <button class="cursor-pointer p-2 rounded-sm transition-all hover:bg-[#3E3F4E]">
+        <img src="assets/icon-vertical-ellipsis.svg" alt="vertical-ellipsis-icon" />
+      </button>
+    </div>
+  </div>
+  <div class="flex gap-6 p-6 overflow-y-hidden overflow-x-auto items-start">
     @for (column of board.columns; track column.id) {
       <app-column [column]="column"></app-column>
     }

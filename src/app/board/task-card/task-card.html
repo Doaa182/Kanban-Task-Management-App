@@ -1,24 +1,9 @@
-<!-- <div class="task-card bg-fuchsia-500">
-  <h4>{{ task.title }}</h4>
+<div class="task-card rounded-lg cursor-pointer py-5 px-4 bg-[#2b2c37]">
+  <h4 class="text-white hover:text-[#635FC7] transition-all font-bold text-sm">
+    {{ taskSignal()?.title }}
+  </h4>
 
-  <p>{{ task.subtasks.length }} subtasks</p>
-</div> -->
-
-<!-- <div class="task-card bg-fuchsia-500">
-  <h4>{{ task.title }}</h4>
-
-  <p>
-    {{ task.subtasks.filter((s) => s.isCompleted).length }}
-    of
-    {{ task.subtasks.length }}
-    subtasks
-  </p>
-</div> -->
-
-<div class="task-card bg-fuchsia-500">
-  <h4>{{ taskSignal()?.title }}</h4>
-
-  <p>
+  <p class="text-[#828fa3] mt-2 font-bold text-xs">
     {{ completedSubtasks() }}
     of
     {{ taskSignal()?.subtasks?.length }}
