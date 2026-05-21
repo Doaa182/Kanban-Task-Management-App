@@ -1,4 +1,4 @@
-<div class="app-layout bg-blue-700">
+<!-- <div class="app-layout bg-blue-700">
   <app-sidebar [boards]="data.boards" (boardSelected)="setActiveBoard($event)"> </app-sidebar>
 
   <main class="app-content">
@@ -6,4 +6,12 @@
   </main>
 </div>
 
-<router-outlet />
+<router-outlet /> -->
+
+<div class="app-layout">
+  <app-sidebar />
+
+  <main class="app-content">
+    <app-board [board]="service.activeBoard()!"></app-board>
+  </main>
+</div>

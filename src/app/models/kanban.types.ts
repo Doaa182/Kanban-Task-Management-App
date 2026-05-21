@@ -1,9 +1,11 @@
 export interface SubtaskType {
+  id: string;
   title: string;
   isCompleted: boolean;
 }
 
 export interface TaskType {
+  id: string;
   title: string;
   description: string;
   status: string;
@@ -11,11 +13,13 @@ export interface TaskType {
 }
 
 export interface ColumnType {
+  id: string;
   name: string;
   tasks: TaskType[];
 }
 
 export interface BoardType {
+  id: string;
   name: string;
   columns: ColumnType[];
 }

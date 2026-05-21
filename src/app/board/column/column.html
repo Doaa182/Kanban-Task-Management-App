@@ -1,11 +1,24 @@
-<div class="column bg-gray-400">
+<!-- <div class="column bg-gray-400">
   <h3>{{ column.name }}</h3>
 
   <ng-container *ngIf="column.tasks.length; else empty">
     <app-task-card *ngFor="let task of column.tasks" [task]="task"> </app-task-card>
+    
   </ng-container>
 
   <ng-template #empty>
     <p class="empty">No tasks</p>
   </ng-template>
+</div> -->
+
+<div class="column bg-gray-400">
+  <h3>{{ column.name }}</h3>
+
+  @if (column.tasks.length === 0) {
+    <p class="empty">No tasks</p>
+  }
+
+  @for (task of column.tasks; track task.id) {
+    <app-task-card [task]="task"></app-task-card>
+  }
 </div>

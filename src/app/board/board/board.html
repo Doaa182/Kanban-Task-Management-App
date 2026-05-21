@@ -1,9 +1,20 @@
-<section class="board bg-amber-500">
+<!-- <section class="board bg-amber-500">
   <h2 class="board-title">
     {{ board.name }}
   </h2>
 
   <div class="columns">
     <app-column *ngFor="let column of board.columns" [column]="column"> </app-column>
+    
+  </div>
+</section> -->
+
+<section class="board">
+  <h2>{{ board.name }}</h2>
+
+  <div class="columns">
+    @for (column of board.columns; track column.id) {
+      <app-column [column]="column"></app-column>
+    }
   </div>
 </section>

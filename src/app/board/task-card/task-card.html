@@ -1,5 +1,27 @@
-<div class="task-card bg-fuchsia-500">
+<!-- <div class="task-card bg-fuchsia-500">
   <h4>{{ task.title }}</h4>
 
   <p>{{ task.subtasks.length }} subtasks</p>
+</div> -->
+
+<!-- <div class="task-card bg-fuchsia-500">
+  <h4>{{ task.title }}</h4>
+
+  <p>
+    {{ task.subtasks.filter((s) => s.isCompleted).length }}
+    of
+    {{ task.subtasks.length }}
+    subtasks
+  </p>
+</div> -->
+
+<div class="task-card bg-fuchsia-500">
+  <h4>{{ taskSignal()?.title }}</h4>
+
+  <p>
+    {{ completedSubtasks() }}
+    of
+    {{ taskSignal()?.subtasks?.length }}
+    subtasks
+  </p>
 </div>
