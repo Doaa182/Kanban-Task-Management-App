@@ -1,0 +1,14 @@
+.active {
+  background: #635fc7;
+  color: white;
+  border-radius: 0 100px 100px 0;
+  -webkit-border-radius: 0 100px 100px 0;
+  -moz-border-radius: 0 100px 100px 0;
+  -ms-border-radius: 0 100px 100px 0;
+  -o-border-radius: 0 100px 100px 0;
+}
+
+.board,
+.create-board-btn {
+  border-radius: 0 100px 100px 0;
+}

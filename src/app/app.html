@@ -1,17 +1,7 @@
-<!-- <div class="app-layout bg-blue-700">
-  <app-sidebar [boards]="data.boards" (boardSelected)="setActiveBoard($event)"> </app-sidebar>
+<div class="flex overflow-hidden h-screen">
+  <app-sidebar class="w-72"></app-sidebar>
 
-  <main class="app-content">
-    <app-board [board]="activeBoard()"></app-board>
-  </main>
-</div>
-
-<router-outlet /> -->
-
-<div class="app-layout">
-  <app-sidebar />
-
-  <main class="app-content">
+  <main class="flex-1 overflow-x-auto ove">
     <app-board [board]="service.activeBoard()!"></app-board>
   </main>
 </div>
