@@ -1,1 +1,9 @@
-<p>board works!</p>
+<section class="board bg-amber-500">
+  <h2 class="board-title">
+    {{ board.name }}
+  </h2>
+
+  <div class="columns">
+    <app-column *ngFor="let column of board.columns" [column]="column"> </app-column>
+  </div>
+</section>

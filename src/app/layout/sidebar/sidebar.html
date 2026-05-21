@@ -1,1 +1,9 @@
-<p>sidebar works!</p>
+<aside class="sidebar bg-red-600">
+  <h2>All Boards ({{ boards.length }})</h2>
+
+  <ul>
+    <li *ngFor="let board of boards" (click)="selectBoard(board)">
+      {{ board.name }}
+    </li>
+  </ul>
+</aside>

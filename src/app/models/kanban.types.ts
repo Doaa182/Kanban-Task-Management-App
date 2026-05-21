@@ -1,21 +1,21 @@
-export interface Subtask {
+export interface SubtaskType {
   title: string;
   isCompleted: boolean;
 }
 
-export interface Task {
+export interface TaskType {
   title: string;
   description: string;
   status: string;
-  subtasks: Subtask[];
+  subtasks: SubtaskType[];
 }
 
-export interface Column {
+export interface ColumnType {
   name: string;
-  tasks: Task[];
+  tasks: TaskType[];
 }
 
-export interface Board {
+export interface BoardType {
   name: string;
-  columns: Column[];
+  columns: ColumnType[];
 }
