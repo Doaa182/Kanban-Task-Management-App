@@ -1,0 +1,81 @@
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { KanbanService } from '../../../services/kanban.service';
+
+@Component({
+  selector: 'app-edit-board-modal',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './edit-board-modal.html',
+})
+export class EditBoardModal {
+  kanbanService = inject(KanbanService);
+
+  board = this.kanbanService.activeBoardSignal();
+
+  form = new FormGroup({
+    name: new FormControl(this.board.name, {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+
+    columns: new FormArray(
+      this.board.columns.map(
+        (column) =>
+          new FormGroup({
+            id: new FormControl(column.id),
+            name: new FormControl(column.name, {
+              nonNullable: true,
+              validators: [Validators.required],
+            }),
+          }),
+      ),
+    ),
+  });
+
+  get columnsArray() {
+    return this.form.controls.columns;
+  }
+
+  addColumnField() {
+    this.columnsArray.push(
+      new FormGroup({
+        id: new FormControl<string | null>(null),
+        name: new FormControl('', {
+          nonNullable: true,
+          validators: [Validators.required],
+        }),
+      }),
+    );
+  }
+
+  removeColumnField(index: number) {
+    if (this.columnsArray.length <= 1) return;
+
+    this.columnsArray.removeAt(index);
+  }
+
+  closeModal() {
+    this.kanbanService.closeEditBoardModal();
+  }
+
+  updateBoard() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    const value = this.form.getRawValue();
+
+    this.kanbanService.updateBoard(this.board.id, {
+      name: value.name,
+      columns: value.columns.map((column) => ({
+        id: column.id ?? undefined,
+        name: column.name,
+      })),
+    });
+
+    this.closeModal();
+  }
+}

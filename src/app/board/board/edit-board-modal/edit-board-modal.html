@@ -1,0 +1,66 @@
+<div class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+  <div class="bg-[#2B2C37] w-[500px] rounded-lg p-6 text-white space-y-5">
+    <h2 class="text-xl font-bold">Edit Board</h2>
+
+    <form [formGroup]="form" (ngSubmit)="updateBoard()" class="space-y-4">
+      <div>
+        <label class="text-xs text-gray-300">Board Name</label>
+
+        <input
+          type="text"
+          formControlName="name"
+          class="w-full mt-1 p-2 rounded bg-[#20212C] border border-gray-600"
+        />
+
+        @if (form.controls.name.touched && form.controls.name.invalid) {
+          <p class="text-red-400 text-xs mt-1">Board name is required</p>
+        }
+      </div>
+
+      <div formArrayName="columns">
+        <label class="text-xs text-gray-300">Board Columns</label>
+
+        @for (column of columnsArray.controls; let i = $index; track i) {
+          <div [formGroupName]="i" class="flex gap-2 mt-2">
+            <input
+              type="text"
+              formControlName="name"
+              class="flex-1 p-2 rounded bg-[#20212C] border border-gray-600"
+            />
+
+            <button
+              type="button"
+              (click)="removeColumnField(i)"
+              [disabled]="columnsArray.length === 1"
+              class="text-red-400 px-2 disabled:opacity-30"
+            >
+              X
+            </button>
+          </div>
+
+          @if (column.get('name')?.touched && column.get('name')?.invalid) {
+            <p class="text-red-400 text-xs">Column name is required</p>
+          }
+        }
+
+        <button type="button" (click)="addColumnField()" class="mt-3 text-sm text-purple-400">
+          + Add New Column
+        </button>
+      </div>
+
+      <div class="flex justify-between pt-4">
+        <button type="button" (click)="closeModal()" class="px-4 py-2 bg-gray-600 rounded">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="px-4 py-2 bg-purple-600 rounded disabled:opacity-50"
+        >
+          Save Changes
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

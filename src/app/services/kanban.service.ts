@@ -5,6 +5,7 @@ import {
   CreateBoardDto,
   CreateTaskDto,
   TaskType,
+  UpdateBoardDto,
   UpdateTaskDto,
 } from '../models/kanban.types';
 
@@ -265,5 +266,61 @@ export class KanbanService {
     this.boardsSignal.update((boards) => [...boards, newBoard]);
 
     this.activeBoardIdSignal.set(newBoard.id);
+  }
+
+  //edit board
+
+  isEditBoardModalOpenSignal = signal<boolean>(false);
+
+  selectedBoardIdForEditSignal = signal<string | null>(null);
+
+  openEditBoardModal(boardId: string) {
+    this.selectedBoardIdForEditSignal.set(boardId);
+    this.isEditBoardModalOpenSignal.set(true);
+  }
+
+  closeEditBoardModal() {
+    this.selectedBoardIdForEditSignal.set(null);
+    this.isEditBoardModalOpenSignal.set(false);
+  }
+
+  selectedBoardForEditSignal = computed(() => {
+    const boardId = this.selectedBoardIdForEditSignal();
+
+    if (!boardId) {
+      return null;
+    }
+
+    return this.boardsSignal().find((board) => board.id === boardId) ?? null;
+  });
+
+  updateBoard(boardId: string, dto: UpdateBoardDto) {
+    const updatedBoards = this.boardsSignal().map((board) => {
+      if (board.id !== boardId) {
+        return board;
+      }
+
+      const updatedColumns = dto.columns.map((columnDto) => {
+        const existingColumn = board.columns.find((column) => column.id === columnDto.id);
+
+        return {
+          id: columnDto.id ?? crypto.randomUUID(),
+          name: columnDto.name,
+          tasks:
+            existingColumn?.tasks.map((task) => ({
+              ...task,
+              status: columnDto.name,
+            })) ?? [],
+        };
+      });
+
+      return {
+        ...board,
+        name: dto.name,
+        columns: updatedColumns,
+      };
+    });
+
+    this.boardsSignal.set(updatedBoards);
   }
 }

@@ -15,4 +15,8 @@ export class Sidebar {
   selectBoardById(boardId: string) {
     this.kanbanService.setActiveBoardById(boardId);
   }
+
+  editCurrentBoard() {
+    this.kanbanService.openEditBoardModal(this.kanbanService.activeBoardSignal().id);
+  }
 }

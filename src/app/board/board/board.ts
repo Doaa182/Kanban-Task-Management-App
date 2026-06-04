@@ -6,11 +6,20 @@ import { TaskModal } from '../task/task-modal/task-modal';
 import { AddTaskModal } from '../task/add-task-modal/add-task-modal';
 import { EditTaskModal } from '../task/edit-task-modal/edit-task-modal';
 import { AddBoardModal } from './add-board-modal/add-board-modal';
+import { EditBoardModal } from './edit-board-modal/edit-board-modal';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, Column, TaskModal, AddTaskModal, EditTaskModal, AddBoardModal],
+  imports: [
+    CommonModule,
+    Column,
+    TaskModal,
+    AddTaskModal,
+    EditTaskModal,
+    AddBoardModal,
+    EditBoardModal,
+  ],
   templateUrl: './board.html',
 })
 export class Board {

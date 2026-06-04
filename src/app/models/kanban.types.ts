@@ -52,3 +52,11 @@ export type CreateBoardDto = {
   name: string;
   columns: CreateColumnDto[];
 };
+
+export type UpdateBoardDto = {
+  name: string;
+  columns: {
+    id?: string;
+    name: string;
+  }[];
+};

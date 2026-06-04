@@ -43,4 +43,8 @@
   @if (kanbanService.isAddBoardModalOpenSignal()) {
     <app-add-board-modal />
   }
+
+  @if (kanbanService.isEditBoardModalOpenSignal()) {
+    <app-edit-board-modal />
+  }
 </section>
