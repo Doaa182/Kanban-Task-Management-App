@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Header } from './header';
+import { TaskModal } from './task-modal';
 
-describe('Header', () => {
-  let component: Header;
-  let fixture: ComponentFixture<Header>;
+describe('TaskModal', () => {
+  let component: TaskModal;
+  let fixture: ComponentFixture<TaskModal>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Header],
+      imports: [TaskModal],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Header);
+    fixture = TestBed.createComponent(TaskModal);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

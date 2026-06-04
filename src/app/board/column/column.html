@@ -12,7 +12,7 @@
     }
 
     @for (task of column.tasks; track task.id) {
-      <app-task-card [task]="task"></app-task-card>
+      <app-task-card [task]="task" (taskClicked)="selectTask($event)"></app-task-card>
     }
   </div>
 </div>

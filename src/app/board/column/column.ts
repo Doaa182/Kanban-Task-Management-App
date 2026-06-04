@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ColumnType } from '../../models/kanban.types';
-import { TaskCard } from '../task-card/task-card';
+import { ColumnType, TaskType } from '../../models/kanban.types';
+import { TaskCard } from '../task/task-card/task-card';
 
 @Component({
   selector: 'app-column',
@@ -12,4 +12,10 @@ import { TaskCard } from '../task-card/task-card';
 })
 export class Column {
   @Input() column!: ColumnType;
+
+  @Output() taskSelected = new EventEmitter<TaskType>();
+
+  selectTask(task: TaskType) {
+    this.taskSelected.emit(task);
+  }
 }

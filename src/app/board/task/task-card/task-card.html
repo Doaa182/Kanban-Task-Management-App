@@ -1,4 +1,4 @@
-<div class="task-card rounded-lg cursor-pointer py-5 px-4 bg-[#2b2c37]">
+<div class="task-card rounded-lg cursor-pointer py-5 px-4 bg-[#2b2c37]" (click)="onTaskClick()">
   <h4 class="text-white hover:text-[#635FC7] transition-all font-bold text-sm">
     {{ taskSignal()?.title }}
   </h4>

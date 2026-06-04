@@ -1,7 +1,6 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BoardType } from '../../models/kanban.types';
-import { KanbanService } from '../../services/kanban.service';
+import { KanbanService } from '../services/kanban.service';
 
 @Component({
   selector: 'app-sidebar',

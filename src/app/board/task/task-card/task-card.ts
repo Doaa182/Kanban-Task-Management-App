@@ -13,9 +13,9 @@
 //   @Input() task!: TaskType;
 // }
 
-import { Component, Input, computed, signal, Signal } from '@angular/core';
+import { Component, Input, computed, signal, Signal, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskType } from '../../models/kanban.types';
+import { TaskType } from '../../../models/kanban.types';
 
 @Component({
   selector: 'app-task-card',
@@ -32,10 +32,20 @@ export class TaskCard {
     this._task.set(value);
   }
 
+  @Output() taskClicked = new EventEmitter<TaskType>();
+
   taskSignal: Signal<TaskType | null> = this._task.asReadonly();
 
   completedSubtasks = computed(() => {
     const task = this.taskSignal();
     return task ? task.subtasks.filter((s) => s.isCompleted).length : 0;
   });
+
+  onTaskClick() {
+    const task = this.taskSignal();
+
+    if (task) {
+      this.taskClicked.emit(task);
+    }
+  }
 }

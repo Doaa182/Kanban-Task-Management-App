@@ -27,7 +27,11 @@
   </div>
   <div class="flex gap-6 p-6 overflow-y-hidden overflow-x-auto items-start">
     @for (column of board.columns; track column.id) {
-      <app-column [column]="column"></app-column>
+      <app-column [column]="column" (taskSelected)="openTask($event)"></app-column>
     }
   </div>
+
+  @if (selectedTask) {
+    <app-task-modal [task]="selectedTask" (closed)="selectedTask = null" />
+  }
 </section>
