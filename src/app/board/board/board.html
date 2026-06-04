@@ -1,37 +1,28 @@
-<!-- <section class="board bg-amber-500">
-  <h2 class="board-title">
-    {{ board.name }}
-  </h2>
-
-  <div class="columns">
-    <app-column *ngFor="let column of board.columns" [column]="column"> </app-column>
-    
-  </div>
-</section> -->
-
-<section class="bg-[#20212C]">
+<section class="bg-[#20212C] h-full flex flex-col">
   <div
-    class="bg-[#2B2C37] text-white font-bold h-24 items-center flex gap-4 border-b border-[#3E3F4E] justify-between px-8"
+    class="bg-[#2B2C37] text-white h-24 flex items-center justify-between px-8 border-b border-[#3E3F4E]"
   >
-    <h2 class="text-2xl">{{ board.name }}</h2>
-    <div class="flex items-center justify-center gap-2">
-      <button
-        class="text-sm rounded-3xl py-3.5 px-6 bg-[#635FC7] hover:bg-[#A8A4FF] cursor-pointer"
-      >
-        + Add New Task
-      </button>
-      <button class="cursor-pointer p-2 rounded-sm transition-all hover:bg-[#3E3F4E]">
-        <img src="assets/icon-vertical-ellipsis.svg" alt="vertical-ellipsis-icon" />
-      </button>
-    </div>
+    @if (kanbanService.activeBoardSignal(); as activeBoard) {
+      <h2 class="text-2xl">
+        {{ activeBoard.name }}
+      </h2>
+    }
+
+    <button class="px-6 py-3 rounded-full bg-[#635FC7] hover:bg-[#A8A4FF]">+ Add Task</button>
   </div>
-  <div class="flex gap-6 p-6 overflow-y-hidden overflow-x-auto items-start">
-    @for (column of board.columns; track column.id) {
-      <app-column [column]="column" (taskSelected)="openTask($event)"></app-column>
+
+  <div class="flex gap-6 p-6 overflow-x-auto flex-1">
+    @if (kanbanService.activeBoardSignal(); as activeBoard) {
+      @for (column of activeBoard.columns; track column.id) {
+        <app-column [column]="column" />
+      }
     }
   </div>
 
-  @if (selectedTask) {
-    <app-task-modal [task]="selectedTask" (closed)="selectedTask = null" />
+  @if (kanbanService.selectedTaskForModalSignal()) {
+    <app-task-modal
+      [task]="kanbanService.selectedTaskForModalSignal()!"
+      (closed)="kanbanService.closeTaskModal()"
+    />
   }
 </section>

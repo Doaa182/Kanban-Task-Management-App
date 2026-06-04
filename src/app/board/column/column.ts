@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ColumnType, TaskType } from '../../models/kanban.types';
 import { TaskCard } from '../task/task-card/task-card';
+import { KanbanService } from '../../services/kanban.service';
 
 @Component({
   selector: 'app-column',
@@ -11,11 +12,11 @@ import { TaskCard } from '../task/task-card/task-card';
   styleUrl: './column.css',
 })
 export class Column {
-  @Input() column!: ColumnType;
+  kanbanService = inject(KanbanService);
 
-  @Output() taskSelected = new EventEmitter<TaskType>();
+  @Input({ required: true }) column!: ColumnType;
 
-  selectTask(task: TaskType) {
-    this.taskSelected.emit(task);
+  onTaskClick(task: TaskType) {
+    this.kanbanService.setSelectedTaskForModal(task);
   }
 }

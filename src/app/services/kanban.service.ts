@@ -1,18 +1,40 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { SAMPLE_DATA } from '../data/sample-data';
-import { BoardType } from '../models/kanban.types';
+import { BoardType, TaskType } from '../models/kanban.types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class KanbanService {
-  boards = signal<BoardType[]>(SAMPLE_DATA.boards);
+  //board
+  boardsSignal = signal<BoardType[]>(SAMPLE_DATA.boards);
+  activeBoardIdSignal = signal<string>(this.boardsSignal()[0].id);
 
-  activeBoardId = signal(this.boards()[0].id);
+  activeBoardSignal = computed(() => {
+    return this.boardsSignal().find((board) => board.id === this.activeBoardIdSignal())!;
+  });
 
-  activeBoard = computed(() => this.boards().find((board) => board.id === this.activeBoardId()));
+  boardCount = computed(() => this.boardsSignal().length);
 
-  setActiveBoard(boardId: string) {
-    this.activeBoardId.set(boardId);
+  setActiveBoardById(boardId: string) {
+    this.activeBoardIdSignal.set(boardId);
+  }
+
+  //task modal
+  selectedTaskForModalSignal = signal<TaskType | null>(null);
+
+  setSelectedTaskForModal(task: TaskType) {
+    this.selectedTaskForModalSignal.set(task);
+  }
+
+  closeTaskModal() {
+    this.selectedTaskForModalSignal.set(null);
+  }
+
+  //light/dark theme
+  isDarkThemeSignal = signal<boolean>(true);
+
+  toggleTheme() {
+    this.isDarkThemeSignal.update((value) => !value);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, computed, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { KanbanService } from '../services/kanban.service';
 
@@ -10,17 +10,9 @@ import { KanbanService } from '../services/kanban.service';
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
-  // @Input() boards: BoardType[] = [];
+  kanbanService = inject(KanbanService);
 
-  // @Output() boardSelected = new EventEmitter<BoardType>();
-
-  //  selectBoard(board: BoardType) {
-  //   this.boardSelected.emit(board);
-  // }
-
-  service = inject(KanbanService);
-
-  selectBoard(boardId: string) {
-    this.service.setActiveBoard(boardId);
+  selectBoardById(boardId: string) {
+    this.kanbanService.setActiveBoardById(boardId);
   }
 }

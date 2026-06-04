@@ -2,15 +2,15 @@
   <img src="assets/logo-light.svg" alt="kanban-logo" class="px-7 pt-8 pb-12" />
 
   <h2 class="text-[#828fa3] text-xs tracking-widest font-bold uppercase pb-5 px-6">
-    All Boards ({{ service.boards().length }})
+    All Boards ({{ kanbanService.boardCount() }})
   </h2>
 
   <ul>
-    @for (board of service.boards(); track board.id) {
+    @for (board of kanbanService.boardsSignal(); track board.id) {
       <li
         class="board cursor-pointer flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all text-[#828fa3] hover:text-[#635fc7] hover:bg-[#635fc71a]"
-        [class.active]="board.id === service.activeBoardId()"
-        (click)="selectBoard(board.id)"
+        [class.active]="board.id === kanbanService.activeBoardIdSignal()"
+        (click)="selectBoardById(board.id)"
       >
         <img src="assets/icon-board.svg" alt="board-icon" />
         <span class="text-xs font-bold p-1.5">
