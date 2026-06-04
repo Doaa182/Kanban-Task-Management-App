@@ -1,0 +1,84 @@
+<div class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+  <div class="bg-[#2B2C37] w-[500px] rounded-lg p-6 text-white space-y-5">
+    <h2 class="text-xl font-bold">Edit Task</h2>
+
+    <form [formGroup]="form" (ngSubmit)="save()" class="space-y-4">
+      <div>
+        <label class="text-xs text-gray-300">Title</label>
+        <input
+          type="text"
+          formControlName="title"
+          class="w-full mt-1 p-2 rounded bg-[#20212C] border border-gray-600"
+        />
+
+        @if (form.controls.title.touched && form.controls.title.invalid) {
+          <p class="text-red-400 text-xs mt-1">Title is required</p>
+        }
+      </div>
+
+      <div>
+        <label class="text-xs text-gray-300">Description</label>
+        <textarea
+          formControlName="description"
+          class="w-full mt-1 p-2 rounded bg-[#20212C] border border-gray-600"
+        ></textarea>
+
+        @if (form.controls.description.touched && form.controls.description.invalid) {
+          <p class="text-red-400 text-xs mt-1">Description is required</p>
+        }
+      </div>
+
+      <div>
+        <label class="text-xs text-gray-300">Status</label>
+        <select
+          formControlName="status"
+          class="w-full mt-1 p-2 rounded bg-[#20212C] border border-gray-600"
+        >
+          @for (column of kanbanService.activeBoardSignal().columns; track column.id) {
+            <option [value]="column.name">
+              {{ column.name }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div formArrayName="subtasks">
+        <label class="text-xs text-gray-300">Subtasks</label>
+
+        @for (subtask of subtasksArray.controls; let i = $index; track i) {
+          <div [formGroupName]="i" class="flex gap-2 mt-2">
+            <input
+              type="text"
+              formControlName="title"
+              class="flex-1 p-2 rounded bg-[#20212C] border border-gray-600"
+            />
+
+            <button type="button" (click)="removeSubtask(i)" class="text-red-400 px-2">X</button>
+          </div>
+
+          @if (subtask.get('title')?.touched && subtask.get('title')?.invalid) {
+            <p class="text-red-400 text-xs">Subtask is required</p>
+          }
+        }
+
+        <button type="button" (click)="addSubtask()" class="mt-3 text-sm text-purple-400">
+          + Add Subtask
+        </button>
+      </div>
+
+      <div class="flex justify-between pt-4">
+        <button type="button" (click)="close()" class="px-4 py-2 bg-gray-600 rounded">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="px-4 py-2 bg-purple-600 rounded disabled:opacity-50"
+          [disabled]="form.invalid"
+        >
+          Save Changes
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

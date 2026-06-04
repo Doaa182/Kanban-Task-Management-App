@@ -21,6 +21,17 @@ export type CreateTaskDto = {
   subtasks: CreateSubtaskDto[];
 };
 
+export type UpdateTaskDto = {
+  title: string;
+  description: string;
+  status: string;
+  subtasks: {
+    id?: string;
+    title: string;
+    isCompleted: boolean;
+  }[];
+};
+
 export interface ColumnType {
   id: string;
   name: string;

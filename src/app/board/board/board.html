@@ -35,4 +35,8 @@
   @if (kanbanService.isAddTaskModalOpenSignal()) {
     <app-add-task-modal />
   }
+
+  @if (kanbanService.isEditTaskModalOpenSignal()) {
+    <app-edit-task-modal />
+  }
 </section>

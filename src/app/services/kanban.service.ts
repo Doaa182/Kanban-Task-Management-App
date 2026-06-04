@@ -1,6 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { SAMPLE_DATA } from '../data/sample-data';
-import { BoardType, CreateTaskDto, TaskType } from '../models/kanban.types';
+import { BoardType, CreateTaskDto, TaskType, UpdateTaskDto } from '../models/kanban.types';
 
 @Injectable({
   providedIn: 'root',
@@ -128,36 +128,6 @@ export class KanbanService {
   }
 
   //add new task
-  // addNewTaskToBoard(input: {
-  //   title: string;
-  //   description: string;
-  //   subtasks: { id: string; title: string; isCompleted: boolean }[];
-  //   status: string;
-  // }) {
-  //   const updatedBoards = this.boardsSignal().map((board) => {
-  //     return {
-  //       ...board,
-  //       columns: board.columns.map((column) => {
-  //         if (column.name !== input.status) return column;
-
-  //         const newTask = {
-  //           id: crypto.randomUUID(),
-  //           title: input.title,
-  //           description: input.description,
-  //           status: input.status,
-  //           subtasks: input.subtasks,
-  //         };
-
-  //         return {
-  //           ...column,
-  //           tasks: [...column.tasks, newTask],
-  //         };
-  //       }),
-  //     };
-  //   });
-
-  //   this.boardsSignal.set(updatedBoards);
-  // }
 
   addTask(createTaskDto: CreateTaskDto) {
     const newTask: TaskType = {
@@ -197,5 +167,70 @@ export class KanbanService {
 
   closeAddTaskModal() {
     this.isAddTaskModalOpenSignal.set(false);
+  }
+
+  //edit task
+  isEditTaskModalOpenSignal = signal<boolean>(false);
+  selectedTaskIdForEditSignal = signal<string | null>(null);
+
+  openEditTaskModal(taskId: string) {
+    this.selectedTaskIdForEditSignal.set(taskId);
+    this.isEditTaskModalOpenSignal.set(true);
+  }
+
+  closeEditTaskModal() {
+    this.isEditTaskModalOpenSignal.set(false);
+    this.selectedTaskIdForEditSignal.set(null);
+  }
+
+  selectedTaskForEditSignal = computed(() => {
+    const taskId = this.selectedTaskIdForEditSignal();
+
+    if (!taskId) return null;
+
+    return (
+      this.activeBoardSignal()
+        .columns.flatMap((c) => c.tasks)
+        .find((t) => t.id === taskId) ?? null
+    );
+  });
+
+  updateTask(taskId: string, update: UpdateTaskDto) {
+    const updatedBoards = this.boardsSignal().map((board) => {
+      return {
+        ...board,
+        columns: board.columns.map((col) => {
+          const filteredTasks = col.tasks.filter((t) => t.id !== taskId);
+
+          const isTargetColumn = col.name === update.status;
+
+          if (!isTargetColumn) {
+            return {
+              ...col,
+              tasks: filteredTasks,
+            };
+          }
+
+          const updatedTask: TaskType = {
+            id: taskId,
+            title: update.title,
+            description: update.description,
+            status: update.status,
+            subtasks: update.subtasks.map((s) => ({
+              id: s.id ?? crypto.randomUUID(),
+              title: s.title,
+              isCompleted: s.isCompleted,
+            })),
+          };
+
+          return {
+            ...col,
+            tasks: [...filteredTasks, updatedTask],
+          };
+        }),
+      };
+    });
+
+    this.boardsSignal.set(updatedBoards);
   }
 }
