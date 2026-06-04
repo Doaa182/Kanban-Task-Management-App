@@ -1,11 +1,51 @@
-<div class="fixed inset-0 bg-black/50 flex items-center justify-center" (click)="close()">
-  <div class="bg-[#2B2C37] rounded-lg p-6 w-96" (click)="$event.stopPropagation()">
-    <h2 class="text-white text-xl font-bold">
-      {{ task.title }}
-    </h2>
+<div class="fixed inset-0 bg-black/50 flex items-center justify-center" (click)="closeTaskModal()">
+  <div class="bg-[#2B2C37] w-96 p-6 rounded-lg text-white" (click)="$event.stopPropagation()">
+    <h2 class="text-lg font-bold">{{ task.title }}</h2>
 
-    <p class="text-[#828FA3] mt-4">
+    <p class="text-[#828FA3] mt-3 text-sm">
       {{ task.description }}
     </p>
+
+    <div class="mt-6">
+      <h3 class="text-xs text-[#828FA3]">
+        Subtasks ({{ task.subtasks.filter((s) => s.isCompleted).length }} of
+        {{ task.subtasks.length }})
+      </h3>
+
+      <div class="mt-3 flex flex-col gap-2">
+        @for (subtask of task.subtasks; track subtask.id) {
+          <label class="flex items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              [checked]="subtask.isCompleted"
+              (change)="toggleSubtask(task.id, subtask.id)"
+            />
+            {{ subtask.title }}
+          </label>
+        }
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <h3 class="text-xs text-[#828FA3] mb-2">Current Status</h3>
+
+      <select
+        class="w-full bg-[#20212C] p-2 rounded text-white"
+        (change)="onTaskStatusSelectionChange($event, task.id)"
+      >
+        @for (column of kanbanService.activeBoardSignal().columns; track column.id) {
+          <option [value]="column.name" [selected]="column.name === task.status">
+            {{ column.name }}
+          </option>
+        }
+      </select>
+    </div>
+
+    <button
+      class="mt-6 w-full bg-red-500 hover:bg-red-600 py-2 rounded"
+      (click)="deleteTaskById(task.id)"
+    >
+      Delete Task
+    </button>
   </div>
 </div>

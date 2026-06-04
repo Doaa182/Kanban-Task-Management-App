@@ -14,7 +14,8 @@
   <div class="flex gap-6 p-6 overflow-x-auto flex-1">
     @if (kanbanService.activeBoardSignal(); as activeBoard) {
       @for (column of activeBoard.columns; track column.id) {
-        <app-column [column]="column" />
+        <!-- <app-column [column]="column" /> -->
+        <app-column [columnId]="column.id" />
       }
     }
   </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, computed, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ColumnType, TaskType } from '../../models/kanban.types';
 import { TaskCard } from '../task/task-card/task-card';
@@ -14,9 +14,16 @@ import { KanbanService } from '../../services/kanban.service';
 export class Column {
   kanbanService = inject(KanbanService);
 
-  @Input({ required: true }) column!: ColumnType;
+  // @Input({ required: true }) column!: ColumnType;
+  @Input({ required: true }) columnId!: string;
 
   onTaskClick(task: TaskType) {
-    this.kanbanService.setSelectedTaskForModal(task);
+    // this.kanbanService.setSelectedTaskForModal(task);
+    this.kanbanService.openTaskModal(task.id);
   }
+
+  column = computed(() => {
+    const board = this.kanbanService.activeBoardSignal();
+    return board?.columns.find((c) => c.id === this.columnId)!;
+  });
 }
