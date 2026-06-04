@@ -5,7 +5,8 @@
 
   <div class="flex flex-col gap-4">
     @for (task of column().tasks; track task.id) {
-      <app-task-card [task]="task" (taskClicked)="onTaskClick($event)" />
+      <!-- <app-task-card [task]="task" (taskClicked)="onTaskClick($event)" /> -->
+      <app-task-card [taskId]="task.id" (taskClicked)="onTaskClick($event)" />
     }
   </div>
 </div>
