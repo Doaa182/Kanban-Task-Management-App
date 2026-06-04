@@ -345,4 +345,35 @@ export class KanbanService {
       this.activeBoardIdSignal.set(nextBoard.id);
     }
   }
+
+  //add column
+  isAddColumnModalOpenSignal = signal<boolean>(false);
+
+  openAddColumnModal() {
+    this.isAddColumnModalOpenSignal.set(true);
+  }
+
+  closeAddColumnModal() {
+    this.isAddColumnModalOpenSignal.set(false);
+  }
+
+  addColumn(boardId: string, columnName: string) {
+    const updatedBoards = this.boardsSignal().map((board) => {
+      if (board.id !== boardId) return board;
+
+      return {
+        ...board,
+        columns: [
+          ...board.columns,
+          {
+            id: crypto.randomUUID(),
+            name: columnName,
+            tasks: [],
+          },
+        ],
+      };
+    });
+
+    this.boardsSignal.set(updatedBoards);
+  }
 }

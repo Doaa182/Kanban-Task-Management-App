@@ -16,12 +16,18 @@
     </button>
   </div>
 
-  <div class="flex gap-6 p-6 overflow-x-auto flex-1">
+  <div class="flex gap-6 p-6 overflow-x-auto flex-1 overflow-y-auto">
     @if (kanbanService.activeBoardSignal(); as activeBoard) {
       @for (column of activeBoard.columns; track column.id) {
         <!-- <app-column [column]="column" /> -->
         <app-column [columnId]="column.id" />
       }
+      <div
+        class="h-[500px] flex items-center justify-center rounded-lg bg-[#2B2C37] text-[#828fa3] hover:text-[#635FC7] cursor-pointer transition"
+        (click)="kanbanService.openAddColumnModal()"
+      >
+        <span class="text-lg font-bold">+ New Column</span>
+      </div>
     }
   </div>
 
@@ -46,5 +52,9 @@
 
   @if (kanbanService.isEditBoardModalOpenSignal()) {
     <app-edit-board-modal />
+  }
+
+  @if (kanbanService.isAddColumnModalOpenSignal()) {
+    <app-add-column-modal />
   }
 </section>

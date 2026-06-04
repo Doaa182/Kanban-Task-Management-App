@@ -1,0 +1,35 @@
+<div class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+  <div class="bg-[#2B2C37] w-[400px] rounded-lg p-6 text-white space-y-5">
+    <h2 class="text-xl font-bold">Add New Column</h2>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+      <div>
+        <label class="text-xs text-gray-300">Column Name</label>
+
+        <input
+          type="text"
+          formControlName="name"
+          class="w-full mt-1 p-2 rounded bg-[#20212C] border border-gray-600"
+        />
+
+        @if (form.controls.name.touched && form.controls.name.invalid) {
+          <p class="text-red-400 text-xs mt-1">Column name is required</p>
+        }
+      </div>
+
+      <div class="flex justify-end gap-2 pt-4">
+        <button type="button" (click)="close()" class="px-4 py-2 bg-gray-600 rounded">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="px-4 py-2 bg-purple-600 rounded disabled:opacity-50"
+          [disabled]="form.invalid"
+        >
+          Add Column
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { AddTaskModal } from '../task/add-task-modal/add-task-modal';
 import { EditTaskModal } from '../task/edit-task-modal/edit-task-modal';
 import { AddBoardModal } from './add-board-modal/add-board-modal';
 import { EditBoardModal } from './edit-board-modal/edit-board-modal';
+import { AddColumnModal } from '../column/add-column-modal/add-column-modal';
 
 @Component({
   selector: 'app-board',
@@ -19,6 +20,7 @@ import { EditBoardModal } from './edit-board-modal/edit-board-modal';
     EditTaskModal,
     AddBoardModal,
     EditBoardModal,
+    AddColumnModal,
   ],
   templateUrl: './board.html',
 })
