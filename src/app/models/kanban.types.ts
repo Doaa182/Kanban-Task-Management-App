@@ -38,8 +38,17 @@ export interface ColumnType {
   tasks: TaskType[];
 }
 
+export type CreateColumnDto = {
+  name: string;
+};
+
 export interface BoardType {
   id: string;
   name: string;
   columns: ColumnType[];
 }
+
+export type CreateBoardDto = {
+  name: string;
+  columns: CreateColumnDto[];
+};

@@ -1,6 +1,12 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { SAMPLE_DATA } from '../data/sample-data';
-import { BoardType, CreateTaskDto, TaskType, UpdateTaskDto } from '../models/kanban.types';
+import {
+  BoardType,
+  CreateBoardDto,
+  CreateTaskDto,
+  TaskType,
+  UpdateTaskDto,
+} from '../models/kanban.types';
 
 @Injectable({
   providedIn: 'root',
@@ -232,5 +238,32 @@ export class KanbanService {
     });
 
     this.boardsSignal.set(updatedBoards);
+  }
+
+  //add board
+  isAddBoardModalOpenSignal = signal<boolean>(false);
+
+  openAddBoardModal() {
+    this.isAddBoardModalOpenSignal.set(true);
+  }
+
+  closeAddBoardModal() {
+    this.isAddBoardModalOpenSignal.set(false);
+  }
+
+  addBoard(dto: CreateBoardDto) {
+    const newBoard: BoardType = {
+      id: crypto.randomUUID(),
+      name: dto.name,
+      columns: dto.columns.map((c) => ({
+        id: crypto.randomUUID(),
+        name: c.name,
+        tasks: [],
+      })),
+    };
+
+    this.boardsSignal.update((boards) => [...boards, newBoard]);
+
+    this.activeBoardIdSignal.set(newBoard.id);
   }
 }

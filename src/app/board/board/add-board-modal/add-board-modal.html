@@ -1,0 +1,59 @@
+<div class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+  <div class="bg-[#2B2C37] w-[500px] rounded-lg p-6 text-white space-y-5">
+    <h2 class="text-xl font-bold">Create New Board</h2>
+
+    <form [formGroup]="form" (ngSubmit)="createBoard()" class="space-y-4">
+      <div>
+        <label class="text-xs text-gray-300">Board Name</label>
+        <input
+          type="text"
+          formControlName="name"
+          class="w-full mt-1 p-2 rounded bg-[#20212C] border border-gray-600"
+        />
+
+        @if (form.controls.name.touched && form.controls.name.invalid) {
+          <p class="text-red-400 text-xs mt-1">Board name is required</p>
+        }
+      </div>
+
+      <div formArrayName="columns">
+        <label class="text-xs text-gray-300">Columns</label>
+
+        @for (col of columnsArray.controls; let i = $index; track i) {
+          <div [formGroupName]="i" class="flex gap-2 mt-2">
+            <input
+              type="text"
+              formControlName="name"
+              placeholder="Column name"
+              class="flex-1 p-2 rounded bg-[#20212C] border border-gray-600"
+            />
+
+            <button type="button" (click)="removeColumn(i)" class="text-red-400 px-2">X</button>
+          </div>
+
+          @if (col.get('name')?.touched && col.get('name')?.invalid) {
+            <p class="text-red-400 text-xs">Column name is required</p>
+          }
+        }
+
+        <button type="button" (click)="addColumn()" class="mt-3 text-sm text-purple-400">
+          + Add Column
+        </button>
+      </div>
+
+      <div class="flex justify-between pt-4">
+        <button type="button" (click)="close()" class="px-4 py-2 bg-gray-600 rounded">
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="px-4 py-2 bg-purple-600 rounded disabled:opacity-50"
+          [disabled]="form.invalid"
+        >
+          Create Board
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
