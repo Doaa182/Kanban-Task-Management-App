@@ -78,4 +78,14 @@ export class EditBoardModal {
 
     this.closeModal();
   }
+
+  deleteBoard() {
+    if (this.kanbanService.boardCountSignal() <= 1) {
+      return;
+    }
+
+    this.kanbanService.deleteBoard(this.board.id);
+
+    this.closeModal();
+  }
 }

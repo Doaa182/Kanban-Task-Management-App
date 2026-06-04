@@ -323,4 +323,26 @@ export class KanbanService {
 
     this.boardsSignal.set(updatedBoards);
   }
+
+  //delete board
+  deleteBoard(boardId: string) {
+    if (this.boardsSignal().length <= 1) {
+      return;
+    }
+
+    const boards = this.boardsSignal();
+
+    const deletedIndex = boards.findIndex((board) => board.id === boardId);
+
+    const updatedBoards = boards.filter((board) => board.id !== boardId);
+
+    this.boardsSignal.set(updatedBoards);
+
+    const nextBoard =
+      updatedBoards[deletedIndex] ?? updatedBoards[deletedIndex - 1] ?? updatedBoards[0];
+
+    if (nextBoard) {
+      this.activeBoardIdSignal.set(nextBoard.id);
+    }
+  }
 }
