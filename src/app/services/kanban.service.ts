@@ -1,6 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { SAMPLE_DATA } from '../data/sample-data';
-import { BoardType, TaskType } from '../models/kanban.types';
+import { BoardType, CreateTaskDto, TaskType } from '../models/kanban.types';
 
 @Injectable({
   providedIn: 'root',
@@ -125,5 +125,77 @@ export class KanbanService {
 
   toggleTheme() {
     this.isDarkThemeSignal.update((value) => !value);
+  }
+
+  //add new task
+  // addNewTaskToBoard(input: {
+  //   title: string;
+  //   description: string;
+  //   subtasks: { id: string; title: string; isCompleted: boolean }[];
+  //   status: string;
+  // }) {
+  //   const updatedBoards = this.boardsSignal().map((board) => {
+  //     return {
+  //       ...board,
+  //       columns: board.columns.map((column) => {
+  //         if (column.name !== input.status) return column;
+
+  //         const newTask = {
+  //           id: crypto.randomUUID(),
+  //           title: input.title,
+  //           description: input.description,
+  //           status: input.status,
+  //           subtasks: input.subtasks,
+  //         };
+
+  //         return {
+  //           ...column,
+  //           tasks: [...column.tasks, newTask],
+  //         };
+  //       }),
+  //     };
+  //   });
+
+  //   this.boardsSignal.set(updatedBoards);
+  // }
+
+  addTask(createTaskDto: CreateTaskDto) {
+    const newTask: TaskType = {
+      id: crypto.randomUUID(),
+      title: createTaskDto.title,
+      description: createTaskDto.description,
+      status: createTaskDto.status,
+      subtasks: createTaskDto.subtasks.map((subtask) => ({
+        id: crypto.randomUUID(),
+        title: subtask.title,
+        isCompleted: false,
+      })),
+    };
+
+    const updatedBoards = this.boardsSignal().map((board) => {
+      return {
+        ...board,
+        columns: board.columns.map((column) => {
+          if (column.name !== createTaskDto.status) return column;
+
+          return {
+            ...column,
+            tasks: [...column.tasks, newTask],
+          };
+        }),
+      };
+    });
+
+    this.boardsSignal.set(updatedBoards);
+  }
+
+  isAddTaskModalOpenSignal = signal<boolean>(false);
+
+  openAddTaskModal() {
+    this.isAddTaskModalOpenSignal.set(true);
+  }
+
+  closeAddTaskModal() {
+    this.isAddTaskModalOpenSignal.set(false);
   }
 }

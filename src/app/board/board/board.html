@@ -8,7 +8,12 @@
       </h2>
     }
 
-    <button class="px-6 py-3 rounded-full bg-[#635FC7] hover:bg-[#A8A4FF]">+ Add Task</button>
+    <button
+      class="px-6 py-3 rounded-full bg-[#635FC7] hover:bg-[#A8A4FF]"
+      (click)="kanbanService.openAddTaskModal()"
+    >
+      + Add Task
+    </button>
   </div>
 
   <div class="flex gap-6 p-6 overflow-x-auto flex-1">
@@ -25,5 +30,9 @@
       [task]="kanbanService.selectedTaskForModalSignal()!"
       (closed)="kanbanService.closeTaskModal()"
     />
+  }
+
+  @if (kanbanService.isAddTaskModalOpenSignal()) {
+    <app-add-task-modal />
   }
 </section>

@@ -4,6 +4,8 @@ export interface SubtaskType {
   isCompleted: boolean;
 }
 
+export type CreateSubtaskDto = Omit<SubtaskType, 'id'>;
+
 export interface TaskType {
   id: string;
   title: string;
@@ -11,6 +13,13 @@ export interface TaskType {
   status: string;
   subtasks: SubtaskType[];
 }
+
+export type CreateTaskDto = {
+  title: string;
+  description: string;
+  status: string;
+  subtasks: CreateSubtaskDto[];
+};
 
 export interface ColumnType {
   id: string;

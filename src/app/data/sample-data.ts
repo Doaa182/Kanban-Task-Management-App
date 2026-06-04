@@ -1,4 +1,3 @@
-//  '' -> issue
 import { BoardType } from '../models/kanban.types';
 
 let boardId = 0;
@@ -24,7 +23,7 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
             {
               id: generateTaskId(),
               title: 'Build UI for onboarding flow',
-              description: '',
+              description: 'Lorem',
               status: 'Todo',
               subtasks: [
                 {
@@ -49,7 +48,7 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
             {
               id: generateTaskId(),
               title: 'Build UI for search',
-              description: '',
+              description: 'Lorem',
               status: 'Todo',
               subtasks: [
                 {
@@ -63,7 +62,7 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
             {
               id: generateTaskId(),
               title: 'Build settings UI',
-              description: '',
+              description: 'Lorem',
               status: 'Todo',
               subtasks: [
                 {
@@ -110,7 +109,7 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
             {
               id: generateTaskId(),
               title: 'Design settings and search pages',
-              description: '',
+              description: 'Lorem',
               status: 'Doing',
               subtasks: [
                 {
@@ -136,7 +135,7 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
             {
               id: generateTaskId(),
               title: 'Add account management endpoints',
-              description: '',
+              description: 'Lorem',
               status: 'Doing',
               subtasks: [
                 {
@@ -162,7 +161,7 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
             {
               id: generateTaskId(),
               title: 'Design onboarding flow',
-              description: '',
+              description: 'Lorem',
               status: 'Doing',
               subtasks: [
                 {
@@ -188,7 +187,7 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
             {
               id: generateTaskId(),
               title: 'Add search enpoints',
-              description: '',
+              description: 'Lorem',
               status: 'Doing',
               subtasks: [
                 {
@@ -208,7 +207,7 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
             {
               id: generateTaskId(),
               title: 'Add authentication endpoints',
-              description: '',
+              description: 'Lorem',
               status: 'Doing',
               subtasks: [
                 {
@@ -321,7 +320,7 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
               id: generateTaskId(),
               title:
                 'Create paper prototypes and conduct 10 usability tests with potential customers',
-              description: '',
+              description: 'Lorem',
               status: 'Done',
               subtasks: [
                 {
@@ -356,7 +355,7 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
             {
               id: generateTaskId(),
               title: 'Competitor analysis',
-              description: '',
+              description: 'Lorem',
               status: 'Done',
               subtasks: [
                 {
@@ -406,7 +405,7 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
             {
               id: generateTaskId(),
               title: 'Plan Product Hunt launch',
-              description: '',
+              description: 'Lorem',
               status: 'Todo',
               subtasks: [
                 {
@@ -444,8 +443,8 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
             {
               id: generateTaskId(),
               title: 'Share on Show HN',
-              description: '',
-              status: '',
+              description: 'Lorem',
+              status: 'Todo',
               subtasks: [
                 {
                   id: generateSubtaskId(),
@@ -467,8 +466,8 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
             {
               id: generateTaskId(),
               title: 'Write launch article to publish on multiple channels',
-              description: '',
-              status: '',
+              description: 'Lorem',
+              status: 'Todo',
               subtasks: [
                 {
                   id: generateSubtaskId(),
@@ -517,8 +516,8 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
             {
               id: generateTaskId(),
               title: 'Launch version one',
-              description: '',
-              status: '',
+              description: 'Lorem',
+              status: 'Todo',
               subtasks: [
                 {
                   id: generateSubtaskId(),
@@ -537,7 +536,7 @@ export const SAMPLE_DATA: { boards: BoardType[] } = {
               title: 'Review early feedback and plan next steps for roadmap',
               description:
                 "Beyond the initial launch, we're keeping the initial roadmap completely empty. This meeting will help us plan out our next steps based on actual customer feedback.",
-              status: '',
+              status: 'Todo',
               subtasks: [
                 {
                   id: generateSubtaskId(),
