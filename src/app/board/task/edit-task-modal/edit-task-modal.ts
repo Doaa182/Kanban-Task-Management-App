@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { KanbanService } from '../../../services/kanban.service';
 import { UpdateTaskDto } from '../../../models/kanban.types';
+import { TaskService } from '../../../services/task.service';
 
 @Component({
   selector: 'app-edit-task-modal',
@@ -13,6 +14,7 @@ import { UpdateTaskDto } from '../../../models/kanban.types';
 })
 export class EditTaskModal {
   kanbanService = inject(KanbanService);
+  taskService = inject(TaskService);
 
   task = this.kanbanService.selectedTaskForEditSignal;
 
@@ -59,7 +61,7 @@ export class EditTaskModal {
   }
 
   close() {
-    this.kanbanService.closeEditTaskModal();
+    this.taskService.closeEditTaskModal();
   }
 
   addSubtask() {
@@ -81,7 +83,7 @@ export class EditTaskModal {
 
     const value = this.form.getRawValue() as UpdateTaskDto;
 
-    this.kanbanService.updateTask(this.task()!.id, value);
+    this.taskService.updateTask(this.task()!.id, value);
 
     this.close();
   }

@@ -1,8 +1,9 @@
-import { Component, computed, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, computed, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ColumnType, TaskType } from '../../models/kanban.types';
+import { TaskType } from '../../models/kanban.types';
 import { TaskCard } from '../task/task-card/task-card';
 import { KanbanService } from '../../services/kanban.service';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-column',
@@ -13,13 +14,14 @@ import { KanbanService } from '../../services/kanban.service';
 })
 export class Column {
   kanbanService = inject(KanbanService);
+  taskService = inject(TaskService);
 
   // @Input({ required: true }) column!: ColumnType;
   @Input({ required: true }) columnId!: string;
 
   onTaskClick(task: TaskType) {
     // this.kanbanService.setSelectedTaskForModal(task);
-    this.kanbanService.openTaskModal(task.id);
+    this.taskService.openTaskModal(task.id);
   }
 
   column = computed(() => {

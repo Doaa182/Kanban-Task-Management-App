@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { KanbanService } from '../../../services/kanban.service';
+import { BoardService } from '../../../services/board.service';
 
 @Component({
   selector: 'app-edit-board-modal',
@@ -11,6 +12,7 @@ import { KanbanService } from '../../../services/kanban.service';
 })
 export class EditBoardModal {
   kanbanService = inject(KanbanService);
+  boardService = inject(BoardService);
 
   board = this.kanbanService.activeBoardSignal();
 
@@ -57,7 +59,7 @@ export class EditBoardModal {
   }
 
   closeModal() {
-    this.kanbanService.closeEditBoardModal();
+    this.boardService.closeEditBoardModal();
   }
 
   updateBoard() {
@@ -68,7 +70,7 @@ export class EditBoardModal {
 
     const value = this.form.getRawValue();
 
-    this.kanbanService.updateBoard(this.board.id, {
+    this.boardService.updateBoard(this.board.id, {
       name: value.name,
       columns: value.columns.map((column) => ({
         id: column.id ?? undefined,
@@ -84,7 +86,7 @@ export class EditBoardModal {
       return;
     }
 
-    this.kanbanService.deleteBoard(this.board.id);
+    this.boardService.deleteBoard(this.board.id);
 
     this.closeModal();
   }

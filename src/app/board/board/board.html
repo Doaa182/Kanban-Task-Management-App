@@ -10,7 +10,7 @@
 
     <button
       class="px-6 py-3 rounded-full bg-[#635FC7] hover:bg-[#A8A4FF]"
-      (click)="kanbanService.openAddTaskModal()"
+      (click)="taskService.openAddTaskModal()"
     >
       + Add Task
     </button>
@@ -24,7 +24,7 @@
       }
       <div
         class="h-[500px] flex items-center justify-center rounded-lg bg-[#2B2C37] text-[#828fa3] hover:text-[#635FC7] cursor-pointer transition"
-        (click)="kanbanService.openAddColumnModal()"
+        (click)="colService.openAddColumnModal()"
       >
         <span class="text-lg font-bold">+ New Column</span>
       </div>
@@ -34,7 +34,7 @@
   @if (kanbanService.selectedTaskForModalSignal()) {
     <app-task-modal
       [task]="kanbanService.selectedTaskForModalSignal()!"
-      (closed)="kanbanService.closeTaskModal()"
+      (closed)="taskService.closeTaskModal()"
     />
   }
 

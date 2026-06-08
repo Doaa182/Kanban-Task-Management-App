@@ -6,6 +6,12 @@ export interface SubtaskType {
 
 export type CreateSubtaskDto = Omit<SubtaskType, 'id'>;
 
+export interface UpdateSubtaskDto {
+  id?: string;
+  title: string;
+  isCompleted: boolean;
+}
+
 export interface TaskType {
   id: string;
   title: string;
@@ -14,23 +20,19 @@ export interface TaskType {
   subtasks: SubtaskType[];
 }
 
-export type CreateTaskDto = {
+export interface CreateTaskDto {
   title: string;
   description: string;
   status: string;
   subtasks: CreateSubtaskDto[];
-};
+}
 
-export type UpdateTaskDto = {
+export interface UpdateTaskDto {
   title: string;
   description: string;
   status: string;
-  subtasks: {
-    id?: string;
-    title: string;
-    isCompleted: boolean;
-  }[];
-};
+  subtasks: UpdateSubtaskDto[];
+}
 
 export interface ColumnType {
   id: string;
@@ -38,9 +40,14 @@ export interface ColumnType {
   tasks: TaskType[];
 }
 
-export type CreateColumnDto = {
+export interface CreateColumnDto {
   name: string;
-};
+}
+
+export interface UpdateColumnDto {
+  id?: string;
+  name: string;
+}
 
 export interface BoardType {
   id: string;
@@ -48,15 +55,12 @@ export interface BoardType {
   columns: ColumnType[];
 }
 
-export type CreateBoardDto = {
+export interface CreateBoardDto {
   name: string;
   columns: CreateColumnDto[];
-};
+}
 
-export type UpdateBoardDto = {
+export interface UpdateBoardDto {
   name: string;
-  columns: {
-    id?: string;
-    name: string;
-  }[];
-};
+  columns: UpdateColumnDto[];
+}

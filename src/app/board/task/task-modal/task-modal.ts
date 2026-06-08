@@ -2,6 +2,7 @@ import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskType } from '../../../models/kanban.types';
 import { KanbanService } from '../../../services/kanban.service';
+import { TaskService } from '../../../services/task.service';
 
 @Component({
   selector: 'app-task-modal',
@@ -16,22 +17,23 @@ export class TaskModal {
   @Output() closed = new EventEmitter<void>();
 
   kanbanService = inject(KanbanService);
+  taskService = inject(TaskService);
 
   closeTaskModal(): void {
     this.closed.emit();
   }
 
   toggleSubtask(taskId: string, subtaskId: string): void {
-    this.kanbanService.toggleSubtaskCompletion(taskId, subtaskId);
+    this.taskService.toggleSubtaskCompletion(taskId, subtaskId);
   }
 
   deleteTaskById(taskId: string): void {
-    this.kanbanService.deleteTaskById(taskId);
+    this.taskService.deleteTaskById(taskId);
     this.closeTaskModal();
   }
 
   changeTaskStatus(taskId: string, newStatus: string): void {
-    this.kanbanService.moveTaskToCol(taskId, newStatus);
+    this.taskService.moveTaskToCol(taskId, newStatus);
   }
 
   onTaskStatusSelectionChange(event: Event, taskId: string) {

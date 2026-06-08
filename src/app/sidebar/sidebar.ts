@@ -1,6 +1,7 @@
-import { Component, computed, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { KanbanService } from '../services/kanban.service';
+import { BoardService } from '../services/board.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,12 +12,13 @@ import { KanbanService } from '../services/kanban.service';
 })
 export class Sidebar {
   kanbanService = inject(KanbanService);
+  boardService = inject(BoardService);
 
   selectBoardById(boardId: string) {
-    this.kanbanService.setActiveBoardById(boardId);
+    this.boardService.setActiveBoardById(boardId);
   }
 
   editCurrentBoard() {
-    this.kanbanService.openEditBoardModal(this.kanbanService.activeBoardSignal().id);
+    this.boardService.openEditBoardModal(this.kanbanService.activeBoardSignal().id);
   }
 }

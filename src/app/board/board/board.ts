@@ -8,6 +8,8 @@ import { EditTaskModal } from '../task/edit-task-modal/edit-task-modal';
 import { AddBoardModal } from './add-board-modal/add-board-modal';
 import { EditBoardModal } from './edit-board-modal/edit-board-modal';
 import { AddColumnModal } from '../column/add-column-modal/add-column-modal';
+import { TaskService } from '../../services/task.service';
+import { ColumnService } from '../../services/column.service';
 
 @Component({
   selector: 'app-board',
@@ -26,4 +28,6 @@ import { AddColumnModal } from '../column/add-column-modal/add-column-modal';
 })
 export class Board {
   kanbanService = inject(KanbanService);
+  taskService = inject(TaskService);
+  colService = inject(ColumnService);
 }

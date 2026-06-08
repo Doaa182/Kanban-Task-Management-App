@@ -3,6 +3,7 @@ import { KanbanService } from '../../../services/kanban.service';
 import { CreateTaskDto } from '../../../models/kanban.types';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TaskService } from '../../../services/task.service';
 
 @Component({
   selector: 'app-add-task-modal',
@@ -13,6 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class AddTaskModal {
   kanbanService = inject(KanbanService);
+  taskService = inject(TaskService);
 
   form = new FormGroup({
     title: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
@@ -30,7 +32,7 @@ export class AddTaskModal {
   }
 
   closeAddTaskModal() {
-    this.kanbanService.closeAddTaskModal();
+    this.taskService.closeAddTaskModal();
   }
 
   addSubtaskField() {
@@ -63,7 +65,7 @@ export class AddTaskModal {
       })),
     };
 
-    this.kanbanService.addTask(payload);
+    this.taskService.addTask(payload);
 
     this.closeAddTaskModal();
   }

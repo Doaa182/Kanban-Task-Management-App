@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { KanbanService } from '../../../services/kanban.service';
 import { CreateBoardDto } from '../../../models/kanban.types';
+import { BoardService } from '../../../services/board.service';
 
 @Component({
   selector: 'app-add-board-modal',
@@ -12,7 +13,8 @@ import { CreateBoardDto } from '../../../models/kanban.types';
   styleUrl: './add-board-modal.css',
 })
 export class AddBoardModal {
-  kanbanService = inject(KanbanService);
+  // kanbanService = inject(KanbanService);
+  boardService = inject(BoardService);
 
   form = new FormGroup({
     name: new FormControl('', {
@@ -48,7 +50,7 @@ export class AddBoardModal {
   }
 
   close() {
-    this.kanbanService.closeAddBoardModal();
+    this.boardService.closeAddBoardModal();
   }
 
   createBoard() {
@@ -56,7 +58,7 @@ export class AddBoardModal {
 
     const value = this.form.getRawValue() as CreateBoardDto;
 
-    this.kanbanService.addBoard(value);
+    this.boardService.addBoard(value);
 
     this.close();
     this.form.reset();
