@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { Board } from './board/board/board';
 import { KanbanService } from './services/kanban.service';
-import { Sidebar } from './sidebar/sidebar';
+import { Board } from './components/board/board';
+import { Sidebar } from './components/sidebar/sidebar';
 
 @Component({
   selector: 'app-root',

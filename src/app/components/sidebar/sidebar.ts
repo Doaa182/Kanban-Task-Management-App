@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { KanbanService } from '../services/kanban.service';
-import { BoardService } from '../services/board.service';
+import { KanbanService } from '../../services/kanban.service';
+import { BoardService } from '../../services/board.service';
 
 @Component({
   selector: 'app-sidebar',
