@@ -61,6 +61,11 @@ export class KanbanService {
     );
   });
 
+  canAddTaskSignal = computed(() => {
+    const board = this.activeBoardSignal();
+    return board.columns.length > 0;
+  });
+
   //add column
   isAddColumnModalOpenSignal = signal<boolean>(false);
 
@@ -69,5 +74,18 @@ export class KanbanService {
 
   toggleTheme() {
     this.isDarkThemeSignal.update((value) => !value);
+  }
+
+  //toast
+  toastMsgSignal = signal<string | null>(null);
+
+  showToast(msg: string) {
+    this.toastMsgSignal.set(msg);
+
+    console.log(msg);
+
+    setTimeout(() => {
+      this.toastMsgSignal.set(null);
+    }, 5000);
   }
 }

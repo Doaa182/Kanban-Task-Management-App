@@ -83,6 +83,13 @@ export class TaskService {
 
   //add new task
   openAddTaskModal() {
+    const activeBoard = this.kanbanService.activeBoardSignal();
+
+    if (!activeBoard || activeBoard.columns.length === 0) {
+      this.kanbanService.showToast('You need at least one column before adding a task.');
+      return;
+    }
+
     this.kanbanService.isAddTaskModalOpenSignal.set(true);
   }
 

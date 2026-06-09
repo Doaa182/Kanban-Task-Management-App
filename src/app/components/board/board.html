@@ -8,8 +8,20 @@
       </h2>
     }
 
+    <!-- <button
+      class="px-6 py-3 rounded-full bg-[#635FC7] hover:bg-[#A8A4FF]"
+      (click)="taskService.openAddTaskModal()"
+      [class.opacity-50]="!kanbanService.canAddTaskSignal()"
+      [class.cursor-not-allowed]="!kanbanService.canAddTaskSignal()"
+    >
+      + Add Task
+    </button> -->
+
     <button
       class="px-6 py-3 rounded-full bg-[#635FC7] hover:bg-[#A8A4FF]"
+      [ngClass]="{
+        'opacity-50 cursor-not-allowed': !kanbanService.canAddTaskSignal(),
+      }"
       (click)="taskService.openAddTaskModal()"
     >
       + Add Task
@@ -56,5 +68,11 @@
 
   @if (kanbanService.isAddColumnModalOpenSignal()) {
     <app-add-column-modal />
+  }
+
+  @if (kanbanService.toastMsgSignal()) {
+    <div class="fixed bottom-6 right-6 bg-red-500 text-white px-4 py-2 rounded shadow-lg">
+      {{ kanbanService.toastMsgSignal() }}
+    </div>
   }
 </section>
