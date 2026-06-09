@@ -10,6 +10,7 @@ import { EditBoardModal } from './edit-board-modal/edit-board-modal';
 import { AddColumnModal } from '../column/add-column-modal/add-column-modal';
 import { TaskService } from '../../services/task.service';
 import { ColumnService } from '../../services/column.service';
+import { ConfirmModal } from '../shared/confirm-modal/confirm-modal';
 
 @Component({
   selector: 'app-board',
@@ -23,6 +24,7 @@ import { ColumnService } from '../../services/column.service';
     AddBoardModal,
     EditBoardModal,
     AddColumnModal,
+    ConfirmModal,
   ],
   templateUrl: './board.html',
 })

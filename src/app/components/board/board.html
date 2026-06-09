@@ -8,15 +8,6 @@
       </h2>
     }
 
-    <!-- <button
-      class="px-6 py-3 rounded-full bg-[#635FC7] hover:bg-[#A8A4FF]"
-      (click)="taskService.openAddTaskModal()"
-      [class.opacity-50]="!kanbanService.canAddTaskSignal()"
-      [class.cursor-not-allowed]="!kanbanService.canAddTaskSignal()"
-    >
-      + Add Task
-    </button> -->
-
     <button
       class="px-6 py-3 rounded-full bg-[#635FC7] hover:bg-[#A8A4FF]"
       [ngClass]="{
@@ -75,4 +66,6 @@
       {{ kanbanService.toastMsgSignal() }}
     </div>
   }
+
+  <app-confirm-modal />
 </section>

@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { KanbanService } from '../../../services/kanban.service';
 import { CreateBoardDto } from '../../../models/kanban.types';
 import { BoardService } from '../../../services/board.service';
 
@@ -13,7 +12,6 @@ import { BoardService } from '../../../services/board.service';
   styleUrl: './add-board-modal.css',
 })
 export class AddBoardModal {
-  // kanbanService = inject(KanbanService);
   boardService = inject(BoardService);
 
   form = new FormGroup({

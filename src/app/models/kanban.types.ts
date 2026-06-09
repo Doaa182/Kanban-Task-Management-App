@@ -64,3 +64,8 @@ export interface UpdateBoardDto {
   name: string;
   columns: UpdateColumnDto[];
 }
+
+export interface ConfirmModalType {
+  title: string;
+  message: string;
+}

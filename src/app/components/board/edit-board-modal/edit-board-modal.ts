@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { KanbanService } from '../../../services/kanban.service';
 import { BoardService } from '../../../services/board.service';
+import { ConfirmModalService } from '../../../services/confirm-modal.service';
 
 @Component({
   selector: 'app-edit-board-modal',
@@ -13,6 +14,7 @@ import { BoardService } from '../../../services/board.service';
 export class EditBoardModal {
   kanbanService = inject(KanbanService);
   boardService = inject(BoardService);
+  confirmModalService = inject(ConfirmModalService);
 
   board = this.kanbanService.activeBoardSignal();
 
@@ -52,8 +54,30 @@ export class EditBoardModal {
     );
   }
 
+  // removeColumnField(index: number) {
+  //   if (this.columnsArray.length <= 1) return;
+
+  //   this.columnsArray.removeAt(index);
+  // }
+
   removeColumnField(index: number) {
     if (this.columnsArray.length <= 1) return;
+
+    const columnTasks = this.kanbanService.activeBoardSignal().columns[index]?.tasks.length ?? 0;
+
+    if (columnTasks > 0) {
+      this.confirmModalService.openConfirmModal(
+        {
+          title: 'Delete Column',
+          message: `This column contains ${columnTasks} task(s). Are you sure you want to delete it?`,
+        },
+        () => {
+          this.columnsArray.removeAt(index);
+        },
+      );
+
+      return;
+    }
 
     this.columnsArray.removeAt(index);
   }
