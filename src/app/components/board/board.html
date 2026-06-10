@@ -21,16 +21,31 @@
 
   <div class="flex gap-6 p-6 overflow-x-auto flex-1 overflow-y-auto">
     @if (kanbanService.activeBoardSignal(); as activeBoard) {
-      @for (column of activeBoard.columns; track column.id) {
-        <!-- <app-column [column]="column" /> -->
-        <app-column [columnId]="column.id" />
+      @if (activeBoard.columns.length === 0) {
+        <div class="flex flex-col items-center justify-center w-full text-center text-[#828fa3]">
+          <p class="text-lg font-medium mb-4">
+            This board is empty. Create a new column to get started.
+          </p>
+
+          <button
+            class="px-6 py-3 rounded-full bg-[#635FC7] hover:bg-[#A8A4FF] text-white"
+            (click)="colService.openAddColumnModal()"
+          >
+            + New Column
+          </button>
+        </div>
+      } @else {
+        @for (column of activeBoard.columns; track column.id) {
+          <!-- <app-column [column]="column" /> -->
+          <app-column [columnId]="column.id" />
+        }
+        <div
+          class="h-[500px] flex items-center justify-center rounded-lg bg-[#2B2C37] text-[#828fa3] hover:text-[#635FC7] cursor-pointer transition"
+          (click)="colService.openAddColumnModal()"
+        >
+          <span class="text-lg font-bold">+ New Column</span>
+        </div>
       }
-      <div
-        class="h-[500px] flex items-center justify-center rounded-lg bg-[#2B2C37] text-[#828fa3] hover:text-[#635FC7] cursor-pointer transition"
-        (click)="colService.openAddColumnModal()"
-      >
-        <span class="text-lg font-bold">+ New Column</span>
-      </div>
     }
   </div>
 
