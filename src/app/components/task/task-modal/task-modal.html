@@ -20,7 +20,14 @@
               [checked]="subtask.isCompleted"
               (change)="toggleSubtask(task.id, subtask.id)"
             />
-            {{ subtask.title }}
+
+            <span
+              [ngClass]="{
+                'line-through text-gray-500': subtask.isCompleted,
+              }"
+            >
+              {{ subtask.title }}
+            </span>
           </label>
         }
       </div>
