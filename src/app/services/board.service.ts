@@ -81,7 +81,11 @@ export class BoardService {
 
   //delete board
   deleteBoard(boardId: string) {
-    if (this.kanbanService.boardsSignal().length <= 1) {
+    // if (this.kanbanService.boardsSignal().length <= 1) {
+    //   return;
+    // }
+
+    if (this.kanbanService.boardsSignal().length == 0) {
       return;
     }
 

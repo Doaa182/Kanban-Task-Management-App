@@ -61,7 +61,7 @@ export class EditBoardModal {
   // }
 
   removeColumnField(index: number) {
-    if (this.columnsArray.length <= 1) return;
+    if (this.columnsArray.length == 0) return;
 
     const columnTaskCount =
       this.kanbanService.activeBoardSignal().columns[index]?.tasks.length ?? 0;
@@ -121,7 +121,10 @@ export class EditBoardModal {
   // }
 
   deleteBoard() {
-    if (this.kanbanService.boardCountSignal() <= 1) {
+    // if (this.kanbanService.boardCountSignal() <= 1) {
+    //   return;
+    // }
+    if (this.kanbanService.boardCountSignal() == 0) {
       return;
     }
 

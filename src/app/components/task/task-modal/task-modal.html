@@ -49,14 +49,14 @@
     </div>
 
     <button
-      class="mt-6 w-full bg-yellow-500 hover:bg-yellow-600 py-2 rounded"
+      class="mt-6 w-full bg-yellow-500 hover:bg-yellow-600 py-2 rounded cursor-pointer"
       (click)="taskService.openEditTaskModal(task.id)"
     >
       Edit Task
     </button>
 
     <button
-      class="mt-6 w-full bg-red-500 hover:bg-red-600 py-2 rounded"
+      class="mt-6 w-full bg-red-500 hover:bg-red-600 py-2 rounded cursor-pointer"
       (click)="deleteTaskById(task.id)"
     >
       Delete Task
