@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TaskType } from '../../../models/kanban.types';
 import { KanbanService } from '../../../services/kanban.service';
 import { TaskService } from '../../../services/task.service';
+import { ConfirmModalService } from '../../../services/confirm-modal.service';
 
 @Component({
   selector: 'app-task-modal',
@@ -18,6 +19,7 @@ export class TaskModal {
 
   kanbanService = inject(KanbanService);
   taskService = inject(TaskService);
+  confirmModalService = inject(ConfirmModalService);
 
   closeTaskModal(): void {
     this.closed.emit();
@@ -27,9 +29,27 @@ export class TaskModal {
     this.taskService.toggleSubtaskCompletion(taskId, subtaskId);
   }
 
+  // deleteTaskById(taskId: string): void {
+  //   this.taskService.deleteTaskById(taskId);
+  //   this.closeTaskModal();
+  // }
+
   deleteTaskById(taskId: string): void {
-    this.taskService.deleteTaskById(taskId);
-    this.closeTaskModal();
+    const subtasksCount = this.task.subtasks.length;
+
+    this.confirmModalService.openConfirmModal(
+      {
+        title: 'Delete Task',
+        message:
+          subtasksCount > 0
+            ? `This task contains ${subtasksCount} subtask(s). Are you sure you want to delete it?`
+            : 'Are you sure you want to delete this task?',
+      },
+      () => {
+        this.taskService.deleteTaskById(taskId);
+        this.closeTaskModal();
+      },
+    );
   }
 
   changeTaskStatus(taskId: string, newStatus: string): void {

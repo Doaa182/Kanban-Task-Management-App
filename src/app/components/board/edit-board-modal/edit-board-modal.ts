@@ -63,23 +63,28 @@ export class EditBoardModal {
   removeColumnField(index: number) {
     if (this.columnsArray.length <= 1) return;
 
-    const columnTasks = this.kanbanService.activeBoardSignal().columns[index]?.tasks.length ?? 0;
+    const columnTaskCount =
+      this.kanbanService.activeBoardSignal().columns[index]?.tasks.length ?? 0;
 
-    if (columnTasks > 0) {
-      this.confirmModalService.openConfirmModal(
-        {
-          title: 'Delete Column',
-          message: `This column contains ${columnTasks} task(s). Are you sure you want to delete it?`,
-        },
-        () => {
-          this.columnsArray.removeAt(index);
-        },
-      );
+    // if (columnTasks > 0) {
+    this.confirmModalService.openConfirmModal(
+      {
+        title: 'Delete Column',
+        // message: `This column contains ${columnTasks} task(s). Are you sure you want to delete it?`,
+        message:
+          columnTaskCount > 0
+            ? `This column contains ${columnTaskCount} task(s). Are you sure you want to delete it?`
+            : 'Are you sure you want to delete this column?',
+      },
+      () => {
+        this.columnsArray.removeAt(index);
+      },
+    );
 
-      return;
-    }
+    // return;
+    // }
 
-    this.columnsArray.removeAt(index);
+    // this.columnsArray.removeAt(index);
   }
 
   closeModal() {
@@ -105,13 +110,36 @@ export class EditBoardModal {
     this.closeModal();
   }
 
+  // deleteBoard() {
+  //   if (this.kanbanService.boardCountSignal() <= 1) {
+  //     return;
+  //   }
+
+  //   this.boardService.deleteBoard(this.board.id);
+
+  //   this.closeModal();
+  // }
+
   deleteBoard() {
     if (this.kanbanService.boardCountSignal() <= 1) {
       return;
     }
 
-    this.boardService.deleteBoard(this.board.id);
+    const taskCount = this.board.columns.reduce((total, column) => total + column.tasks.length, 0);
 
-    this.closeModal();
+    this.confirmModalService.openConfirmModal(
+      {
+        title: 'Delete Board',
+        // message: `This board contains ${taskCount} task(s). Are you sure you want to delete it?`,
+        message:
+          taskCount > 0
+            ? `This board contains ${taskCount} task(s). Are you sure you want to delete it?`
+            : 'Are you sure you want to delete this board?',
+      },
+      () => {
+        this.boardService.deleteBoard(this.board.id);
+        this.closeModal();
+      },
+    );
   }
 }
