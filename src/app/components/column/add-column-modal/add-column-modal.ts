@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { KanbanService } from '../../../services/kanban.service';
 import { ColumnService } from '../../../services/column.service';
+import { UiService } from '../../../services/ui.service';
 
 @Component({
   selector: 'app-add-column-modal',
@@ -13,6 +14,7 @@ import { ColumnService } from '../../../services/column.service';
 export class AddColumnModal {
   kanbanService = inject(KanbanService);
   colService = inject(ColumnService);
+  uiService = inject(UiService);
 
   form = new FormGroup({
     name: new FormControl('', {
@@ -28,7 +30,21 @@ export class AddColumnModal {
   submit() {
     if (this.form.invalid) return;
 
-    this.colService.addColumn(this.kanbanService.activeBoardSignal().id, this.form.value.name!);
+    const boardId = this.kanbanService.activeBoardSignal().id;
+    const columnName = this.form.value.name!;
+
+    if (this.colService.isColumnNameDuplicated(boardId, columnName)) {
+      this.form.controls.name.setErrors({
+        ...this.form.controls.name.errors,
+        duplicate: true,
+      });
+
+      this.form.controls.name.markAsTouched();
+
+      return;
+    }
+
+    this.colService.addColumn(boardId, columnName);
 
     this.close();
   }

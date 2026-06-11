@@ -34,4 +34,13 @@ export class ColumnService {
 
     this.kanbanService.boardsSignal.set(updatedBoards);
   }
+
+  isColumnNameDuplicated(boardId: string, name: string, ignoreId?: string): boolean {
+    const board = this.kanbanService.boardsSignal().find((b) => b.id === boardId);
+    if (!board) return false;
+
+    return board.columns.some(
+      (c) => c.name.trim().toLowerCase() === name.trim().toLowerCase() && c.id !== ignoreId,
+    );
+  }
 }

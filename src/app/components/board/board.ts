@@ -11,6 +11,7 @@ import { AddColumnModal } from '../column/add-column-modal/add-column-modal';
 import { TaskService } from '../../services/task.service';
 import { ColumnService } from '../../services/column.service';
 import { ConfirmModal } from '../shared/confirm-modal/confirm-modal';
+import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-board',
@@ -32,4 +33,5 @@ export class Board {
   kanbanService = inject(KanbanService);
   taskService = inject(TaskService);
   colService = inject(ColumnService);
+  uiService = inject(UiService);
 }

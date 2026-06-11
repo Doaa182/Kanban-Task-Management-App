@@ -1,12 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { KanbanService } from './kanban.service';
 import { CreateTaskDto, TaskType, UpdateTaskDto } from '../models/kanban.types';
+import { UiService } from './ui.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
   kanbanService = inject(KanbanService);
+  uiService = inject(UiService);
 
   openTaskModal(taskId: string) {
     this.kanbanService.selectedTaskIdForModalSignal.set(taskId);
@@ -86,7 +88,7 @@ export class TaskService {
     const activeBoard = this.kanbanService.activeBoardSignal();
 
     if (!activeBoard || activeBoard.columns.length === 0) {
-      this.kanbanService.showToast('You need at least one column before adding a task.');
+      this.uiService.showToast('You need at least one column before adding a task.');
       return;
     }
 

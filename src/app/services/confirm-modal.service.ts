@@ -10,7 +10,6 @@ export class ConfirmModalService {
   confirmModalActionCallback: (() => void) | null = null;
 
   openConfirmModal(data: ConfirmModalType, onConfirm: () => void) {
-    // openConfirmModal(data: ConfirmModalType) {
     this.confirmModalDataSignal.set(data);
     this.confirmModalActionCallback = onConfirm;
     this.isConfirmModalOpenSignal.set(true);

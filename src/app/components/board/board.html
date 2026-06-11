@@ -84,9 +84,9 @@
     <app-add-column-modal />
   }
 
-  @if (kanbanService.toastMsgSignal()) {
+  @if (uiService.toastMsgSignal()) {
     <div class="fixed bottom-6 right-6 bg-red-500 text-white px-4 py-2 rounded shadow-lg">
-      {{ kanbanService.toastMsgSignal() }}
+      {{ uiService.toastMsgSignal() }}
     </div>
   }
 

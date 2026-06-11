@@ -4,6 +4,7 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } fr
 import { KanbanService } from '../../../services/kanban.service';
 import { BoardService } from '../../../services/board.service';
 import { ConfirmModalService } from '../../../services/confirm-modal.service';
+import { UiService } from '../../../services/ui.service';
 
 @Component({
   selector: 'app-edit-board-modal',
@@ -15,6 +16,7 @@ export class EditBoardModal {
   kanbanService = inject(KanbanService);
   boardService = inject(BoardService);
   confirmModalService = inject(ConfirmModalService);
+  uiService = inject(UiService);
 
   board = this.kanbanService.activeBoardSignal();
 
@@ -54,21 +56,14 @@ export class EditBoardModal {
     );
   }
 
-  // removeColumnField(index: number) {
-  //   if (this.columnsArray.length <= 1) return;
-
-  //   this.columnsArray.removeAt(index);
-  // }
-
   removeColumnField(index: number) {
     const columnTaskCount =
       this.kanbanService.activeBoardSignal().columns[index]?.tasks.length ?? 0;
 
-    // if (columnTasks > 0) {
     this.confirmModalService.openConfirmModal(
       {
         title: 'Delete Column',
-        // message: `This column contains ${columnTasks} task(s). Are you sure you want to delete it?`,
+
         message:
           columnTaskCount > 0
             ? `This column contains ${columnTaskCount} task(s). Are you sure you want to delete it?`
@@ -78,11 +73,6 @@ export class EditBoardModal {
         this.columnsArray.removeAt(index);
       },
     );
-
-    // return;
-    // }
-
-    // this.columnsArray.removeAt(index);
   }
 
   closeModal() {
@@ -97,6 +87,19 @@ export class EditBoardModal {
 
     const value = this.form.getRawValue();
 
+    if (this.boardService.isBoardNameDuplicated(value.name, this.board.id)) {
+      this.form.controls.name.setErrors({
+        ...this.form.controls.name.errors,
+        duplicate: true,
+      });
+
+      this.form.controls.name.markAsTouched();
+
+      return;
+    }
+
+    if (this.markDuplicateCols()) return;
+
     this.boardService.updateBoard(this.board.id, {
       name: value.name,
       columns: value.columns.map((column) => ({
@@ -108,20 +111,34 @@ export class EditBoardModal {
     this.closeModal();
   }
 
-  // deleteBoard() {
-  //   if (this.kanbanService.boardCountSignal() <= 1) {
-  //     return;
-  //   }
+  markDuplicateCols(): boolean {
+    const seen = new Set<string>();
+    let hasDuplicate = false;
 
-  //   this.boardService.deleteBoard(this.board.id);
+    for (const group of this.columnsArray.controls) {
+      const control = group.get('name');
+      const value = control?.value?.trim().toLowerCase();
 
-  //   this.closeModal();
-  // }
+      if (!value) continue;
+
+      if (seen.has(value)) {
+        control?.setErrors({
+          ...control.errors,
+          duplicate: true,
+        });
+
+        control?.markAsTouched();
+
+        hasDuplicate = true;
+      } else {
+        seen.add(value);
+      }
+    }
+
+    return hasDuplicate;
+  }
 
   deleteBoard() {
-    // if (this.kanbanService.boardCountSignal() <= 1) {
-    //   return;
-    // }
     if (this.kanbanService.boardCountSignal() <= 1) {
       return;
     }
@@ -131,7 +148,6 @@ export class EditBoardModal {
     this.confirmModalService.openConfirmModal(
       {
         title: 'Delete Board',
-        // message: `This board contains ${taskCount} task(s). Are you sure you want to delete it?`,
         message:
           taskCount > 0
             ? `This board contains ${taskCount} task(s). Are you sure you want to delete it?`

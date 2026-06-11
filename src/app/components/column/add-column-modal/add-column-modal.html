@@ -15,8 +15,14 @@
           class="w-full mt-1 p-2 rounded bg-[#20212C] border border-gray-600"
         />
 
-        @if (form.controls.name.touched && form.controls.name.invalid) {
-          <p class="text-red-400 text-xs mt-1">Column name is required</p>
+        @if (form.controls.name.touched) {
+          @if (form.controls.name.errors?.['required']) {
+            <p class="text-red-400 text-xs mt-1">Column name is required</p>
+          }
+
+          @if (form.controls.name.errors?.['duplicate']) {
+            <p class="text-red-400 text-xs mt-1">Column name already exists</p>
+          }
         }
       </div>
 

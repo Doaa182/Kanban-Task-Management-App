@@ -16,13 +16,11 @@ export class Column {
   kanbanService = inject(KanbanService);
   taskService = inject(TaskService);
 
-  // @Input({ required: true }) column!: ColumnType;
   @Input({ required: true }) columnId!: string;
 
   columnColors = ['#49C4E5', '#8471F2', '#67E2AE', '#F28771', '#F2D771', '#E54980'];
 
   onTaskClick(task: TaskType) {
-    // this.kanbanService.setSelectedTaskForModal(task);
     this.taskService.openTaskModal(task.id);
   }
 

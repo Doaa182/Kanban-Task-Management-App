@@ -15,8 +15,14 @@
           class="w-full mt-1 p-2 rounded bg-[#20212C] border border-gray-600"
         />
 
-        @if (form.controls.name.touched && form.controls.name.invalid) {
-          <p class="text-red-400 text-xs mt-1">Board name is required</p>
+        @if (form.controls.name.touched) {
+          @if (form.controls.name.errors?.['required']) {
+            <p class="text-red-400 text-xs mt-1">Board name is required</p>
+          }
+
+          @if (form.controls.name.errors?.['duplicate']) {
+            <p class="text-red-400 text-xs mt-1">Board name already exists</p>
+          }
         }
       </div>
 
@@ -40,8 +46,14 @@
             </button>
           </div>
 
-          @if (column.get('name')?.touched && column.get('name')?.invalid) {
-            <p class="text-red-400 text-xs">Column name is required</p>
+          @if (column.get('name')?.touched) {
+            @if (column.get('name')?.errors?.['required']) {
+              <p class="text-red-400 text-xs">Column name is required</p>
+            }
+
+            @if (column.get('name')?.errors?.['duplicate']) {
+              <p class="text-red-400 text-xs">Column name already exists</p>
+            }
           }
         }
 

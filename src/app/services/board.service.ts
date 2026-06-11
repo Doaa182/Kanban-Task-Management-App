@@ -81,10 +81,6 @@ export class BoardService {
 
   //delete board
   deleteBoard(boardId: string) {
-    // if (this.kanbanService.boardsSignal().length <= 1) {
-    //   return;
-    // }
-
     if (this.kanbanService.boardsSignal().length == 0) {
       return;
     }
@@ -103,5 +99,11 @@ export class BoardService {
     if (nextBoard) {
       this.kanbanService.activeBoardIdSignal.set(nextBoard.id);
     }
+  }
+
+  isBoardNameDuplicated(name: string, ignoreId?: string): boolean {
+    return this.kanbanService
+      .boardsSignal()
+      .some((b) => b.name.trim().toLowerCase() === name.trim().toLowerCase() && b.id !== ignoreId);
   }
 }

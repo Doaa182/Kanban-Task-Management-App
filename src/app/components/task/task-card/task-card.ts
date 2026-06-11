@@ -13,7 +13,6 @@ import { KanbanService } from '../../../services/kanban.service';
 export class TaskCard {
   kanbanService = inject(KanbanService);
 
-  // @Input({ required: true }) task!: TaskType;
   @Input({ required: true }) taskId!: string;
 
   @Output() taskClicked = new EventEmitter<TaskType>();
@@ -25,15 +24,10 @@ export class TaskCard {
       .find((t) => t.id === this.taskId);
   });
 
-  // completedSubtasksCount = computed(() => this.task.subtasks.filter((s) => s.isCompleted).length);
   completedSubtasksCount = computed(() => {
     const task = this.task();
     return task ? task.subtasks.filter((s) => s.isCompleted).length : 0;
   });
-
-  // onTaskClick() {
-  //   this.taskClicked.emit(this.task);
-  // }
 
   onTaskClick() {
     const task = this.task();

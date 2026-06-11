@@ -68,24 +68,4 @@ export class KanbanService {
 
   //add column
   isAddColumnModalOpenSignal = signal<boolean>(false);
-
-  //light/dark theme
-  isDarkThemeSignal = signal<boolean>(true);
-
-  toggleTheme() {
-    this.isDarkThemeSignal.update((value) => !value);
-  }
-
-  //toast
-  toastMsgSignal = signal<string | null>(null);
-
-  showToast(msg: string) {
-    this.toastMsgSignal.set(msg);
-
-    console.log(msg);
-
-    setTimeout(() => {
-      this.toastMsgSignal.set(null);
-    }, 5000);
-  }
 }

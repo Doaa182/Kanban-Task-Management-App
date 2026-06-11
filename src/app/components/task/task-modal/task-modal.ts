@@ -29,11 +29,6 @@ export class TaskModal {
     this.taskService.toggleSubtaskCompletion(taskId, subtaskId);
   }
 
-  // deleteTaskById(taskId: string): void {
-  //   this.taskService.deleteTaskById(taskId);
-  //   this.closeTaskModal();
-  // }
-
   deleteTaskById(taskId: string): void {
     const subtasksCount = this.task.subtasks.length;
 
