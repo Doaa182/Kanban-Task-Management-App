@@ -1,5 +1,14 @@
 <div class="flex overflow-hidden h-screen">
-  <app-sidebar class="w-72 shrink-0"></app-sidebar>
+  @if (uiService.isSidebarOpenSignal()) {
+    <app-sidebar class="w-72 shrink-0"></app-sidebar>
+  } @else {
+    <button
+      class="fixed left-0 bottom-8 bg-[#635FC7] px-5 py-4 rounded-r-full cursor-pointer"
+      (click)="uiService.openSidebar()"
+    >
+      <img src="assets/icon-show-sidebar.svg" alt="show-sidebar" />
+    </button>
+  }
 
   <main class="flex-1 overflow-x-auto">
     <app-board></app-board>

@@ -38,8 +38,9 @@
 
   <div
     class="flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all text-[#828fa3] hover:text-[#635fc7] hover:bg-[#635fc71a] cursor-pointer rounded-full"
+    (click)="uiService.closeSidebar()"
   >
-    <img src="assets/icon-hide-sidebar.svg" alt="hidden-icon" />
+    <img src="assets/icon-hide-sidebar.svg" alt="hide-sidebar" />
     <button class="cursor-pointer">Hide Sidebar</button>
   </div>
 </aside>

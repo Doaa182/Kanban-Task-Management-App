@@ -46,8 +46,9 @@
           <!-- <app-column [column]="column" /> -->
           <app-column [columnId]="column.id" />
         }
+
         <div
-          class="h-[500px] flex items-center justify-center rounded-lg bg-[#2B2C37] text-[#828fa3] hover:text-[#635FC7] cursor-pointer transition"
+          class="h-screen mt-8 px-20 shrink-0 flex items-center justify-center rounded-lg bg-[#2B2C37] text-[#828fa3] hover:text-[#635FC7] cursor-pointer transition"
           (click)="colService.openAddColumnModal()"
         >
           <span class="text-lg font-bold">+ New Column</span>
