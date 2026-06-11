@@ -1,5 +1,8 @@
-<div class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-  <div class="bg-[#2B2C37] w-[500px] rounded-lg p-6 text-white space-y-5">
+<div class="fixed inset-0 bg-black/60 flex items-center justify-center z-50" (click)="closeModal()">
+  <div
+    class="bg-[#2B2C37] w-[500px] rounded-lg p-6 text-white space-y-5"
+    (click)="$event.stopPropagation()"
+  >
     <h2 class="text-xl font-bold">Edit Board</h2>
 
     <form [formGroup]="form" (ngSubmit)="updateBoard()" class="space-y-4">
@@ -55,7 +58,7 @@
         <button
           type="button"
           (click)="deleteBoard()"
-          [disabled]="kanbanService.boardCountSignal() == 0"
+          [disabled]="kanbanService.boardCountSignal() <= 1"
           class="px-4 py-2 bg-red-600 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Delete Board

@@ -1,5 +1,11 @@
-<div class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-  <div class="bg-[#2B2C37] w-[500px] rounded-lg p-6 text-white space-y-5">
+<div
+  class="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
+  (click)="closeAddTaskModal()"
+>
+  <div
+    class="bg-[#2B2C37] w-[500px] rounded-lg p-6 text-white space-y-5"
+    (click)="$event.stopPropagation()"
+  >
     <h2 class="text-xl font-bold">Add New Task</h2>
 
     <form [formGroup]="form" (ngSubmit)="createTask()" class="space-y-4">
