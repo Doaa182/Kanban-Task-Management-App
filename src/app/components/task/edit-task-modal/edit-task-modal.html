@@ -48,7 +48,8 @@
       <div formArrayName="subtasks">
         <label class="text-xs text-gray-300">Subtasks</label>
 
-        @for (subtask of subtasksArray.controls; let i = $index; track i) {
+        <!-- @for (subtask of subtasksArray.controls; let i = $index; track i) { -->
+        @for (subtask of subtasksArray.controls; let i = $index; track subtask) {
           <div [formGroupName]="i" class="flex gap-2 mt-2">
             <input
               type="text"

@@ -27,7 +27,9 @@
       <div formArrayName="columns">
         <label class="text-xs text-gray-300">Columns</label>
 
-        @for (col of columnsArray.controls; let i = $index; track i) {
+        <!-- @for (col of columnsArray.controls; let i = $index; track i) { -->
+        <!-- @for (col of columnsArray.controls; track col.get('id')?.value) { -->
+        @for (col of columnsArray.controls; let i = $index; track col) {
           <div [formGroupName]="i" class="flex gap-2 mt-2">
             <input
               type="text"

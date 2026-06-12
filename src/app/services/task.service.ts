@@ -145,6 +145,9 @@ export class TaskService {
       return {
         ...board,
         columns: board.columns.map((col) => {
+          const taskIndex = col.tasks.findIndex((t) => t.id === taskId);
+          const taskExists = taskIndex !== -1;
+
           const filteredTasks = col.tasks.filter((t) => t.id !== taskId);
 
           const isTargetColumn = col.name === update.status;
@@ -167,6 +170,16 @@ export class TaskService {
               isCompleted: s.isCompleted,
             })),
           };
+
+          if (taskExists) {
+            const newTasks = [...filteredTasks];
+            newTasks.splice(taskIndex, 0, updatedTask);
+
+            return {
+              ...col,
+              tasks: newTasks,
+            };
+          }
 
           return {
             ...col,

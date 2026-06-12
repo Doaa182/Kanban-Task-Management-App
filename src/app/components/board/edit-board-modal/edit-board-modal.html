@@ -29,7 +29,8 @@
       <div formArrayName="columns">
         <label class="text-xs text-gray-300">Board Columns</label>
 
-        @for (column of columnsArray.controls; let i = $index; track i) {
+        <!-- @for (column of columnsArray.controls; let i = $index; track i) { -->
+        @for (col of columnsArray.controls; let i = $index; track col) {
           <div [formGroupName]="i" class="flex gap-2 mt-2">
             <input
               type="text"
@@ -46,12 +47,12 @@
             </button>
           </div>
 
-          @if (column.get('name')?.touched) {
-            @if (column.get('name')?.errors?.['required']) {
+          @if (col.get('name')?.touched) {
+            @if (col.get('name')?.errors?.['required']) {
               <p class="text-red-400 text-xs">Column name is required</p>
             }
 
-            @if (column.get('name')?.errors?.['duplicate']) {
+            @if (col.get('name')?.errors?.['duplicate']) {
               <p class="text-red-400 text-xs">Column name already exists</p>
             }
           }
