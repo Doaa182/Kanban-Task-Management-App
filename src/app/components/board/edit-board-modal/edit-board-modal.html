@@ -1,6 +1,6 @@
-<div class="fixed inset-0 bg-black/60 flex items-center justify-center z-50" (click)="closeModal()">
+<div class="fixed inset-0 bg-black/60 overflow-y-auto p-10 z-50" (click)="closeModal()">
   <div
-    class="bg-[#2B2C37] w-[500px] rounded-lg p-6 text-white space-y-5"
+    class="bg-[#2B2C37] w-[500px] rounded-lg p-6 text-white space-y-5 m-y-10 mx-auto"
     (click)="$event.stopPropagation()"
   >
     <h2 class="text-xl font-bold">Edit Board</h2>
@@ -70,30 +70,19 @@
       <div class="flex justify-between pt-4">
         <button
           type="button"
-          (click)="deleteBoard()"
-          [disabled]="kanbanService.boardCountSignal() <= 1"
-          class="px-4 py-2 bg-red-600 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          (click)="closeModal()"
+          class="px-4 py-2 bg-gray-600 rounded cursor-pointer"
         >
-          Delete Board
+          Cancel
         </button>
 
-        <div class="flex gap-2">
-          <button
-            type="button"
-            (click)="closeModal()"
-            class="px-4 py-2 bg-gray-600 rounded cursor-pointer"
-          >
-            Cancel
-          </button>
-
-          <button
-            type="submit"
-            [disabled]="form.invalid"
-            class="px-4 py-2 bg-purple-600 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            Save Changes
-          </button>
-        </div>
+        <button
+          type="submit"
+          [disabled]="form.invalid"
+          class="px-4 py-2 bg-purple-600 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Save Changes
+        </button>
       </div>
     </form>
   </div>

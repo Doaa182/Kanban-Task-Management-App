@@ -38,4 +38,26 @@ export class UiService {
       this.toastMsgSignal.set(null);
     }, 5000);
   }
+
+  //menu
+  isBoardMenuOpen = signal(false);
+  isTaskMenuOpen = signal(false);
+
+  toggleBoardMenu(event: MouseEvent) {
+    event.stopPropagation();
+    this.isBoardMenuOpen.update((value) => !value);
+  }
+
+  toggleTaskMenu(event: MouseEvent) {
+    event.stopPropagation();
+    this.isTaskMenuOpen.update((value) => !value);
+  }
+
+  closeBoardMenu() {
+    this.isBoardMenuOpen.set(false);
+  }
+
+  closeTaskMenu() {
+    this.isTaskMenuOpen.set(false);
+  }
 }

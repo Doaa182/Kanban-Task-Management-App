@@ -137,26 +137,4 @@ export class EditBoardModal {
 
     return hasDuplicate;
   }
-
-  deleteBoard() {
-    if (this.kanbanService.boardCountSignal() <= 1) {
-      return;
-    }
-
-    const taskCount = this.board.columns.reduce((total, column) => total + column.tasks.length, 0);
-
-    this.confirmModalService.openConfirmModal(
-      {
-        title: 'Delete Board',
-        message:
-          taskCount > 0
-            ? `This board contains ${taskCount} task(s). Are you sure you want to delete it?`
-            : 'Are you sure you want to delete this board?',
-      },
-      () => {
-        this.boardService.deleteBoard(this.board.id);
-        this.closeModal();
-      },
-    );
-  }
 }

@@ -12,6 +12,8 @@ import { TaskService } from '../../services/task.service';
 import { ColumnService } from '../../services/column.service';
 import { ConfirmModal } from '../shared/confirm-modal/confirm-modal';
 import { UiService } from '../../services/ui.service';
+import { BoardService } from '../../services/board.service';
+import { ConfirmModalService } from '../../services/confirm-modal.service';
 
 @Component({
   selector: 'app-board',
@@ -31,7 +33,44 @@ import { UiService } from '../../services/ui.service';
 })
 export class Board {
   kanbanService = inject(KanbanService);
+  boardService = inject(BoardService);
   taskService = inject(TaskService);
   colService = inject(ColumnService);
   uiService = inject(UiService);
+  confirmModalService = inject(ConfirmModalService);
+
+  // currentBoard = this.kanbanService.activeBoardSignal();
+  get currentBoard() {
+    return this.kanbanService.activeBoardSignal();
+  }
+
+  editCurrentBoard() {
+    this.boardService.openEditBoardModal(this.currentBoard.id);
+  }
+
+  deleteCurrentBoard() {
+    if (this.kanbanService.boardCountSignal() <= 1) {
+      this.uiService.showToast('You must keep at least one board.');
+      return;
+    }
+
+    const taskCount = this.currentBoard.columns.reduce(
+      (total, column) => total + column.tasks.length,
+      0,
+    );
+
+    this.confirmModalService.openConfirmModal(
+      {
+        title: 'Delete Board',
+        message:
+          taskCount > 0
+            ? `This board contains ${taskCount} task(s). Are you sure you want to delete it?`
+            : 'Are you sure you want to delete this board?',
+      },
+      () => {
+        this.boardService.deleteBoard(this.currentBoard.id);
+        this.boardService.closeEditBoardModal();
+      },
+    );
+  }
 }

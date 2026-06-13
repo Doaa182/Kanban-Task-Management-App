@@ -4,6 +4,7 @@ import { TaskType } from '../../../models/kanban.types';
 import { KanbanService } from '../../../services/kanban.service';
 import { TaskService } from '../../../services/task.service';
 import { ConfirmModalService } from '../../../services/confirm-modal.service';
+import { UiService } from '../../../services/ui.service';
 
 @Component({
   selector: 'app-task-modal',
@@ -20,6 +21,7 @@ export class TaskModal {
   kanbanService = inject(KanbanService);
   taskService = inject(TaskService);
   confirmModalService = inject(ConfirmModalService);
+  uiService = inject(UiService);
 
   closeTaskModal(): void {
     this.closed.emit();
