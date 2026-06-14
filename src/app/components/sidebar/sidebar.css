@@ -1,6 +1,6 @@
 .active {
-  background: #635fc7;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-surface);
   border-radius: 0 100px 100px 0;
   -webkit-border-radius: 0 100px 100px 0;
   -moz-border-radius: 0 100px 100px 0;
@@ -9,6 +9,7 @@
 }
 
 .board,
-.create-board-btn {
+.create-board-btn,
+.hide-sidebar-btn {
   border-radius: 0 100px 100px 0;
 }

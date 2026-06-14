@@ -1,41 +1,45 @@
 <div class="fixed inset-0 bg-black/60 z-50 overflow-y-auto p-10" (click)="close()">
   <div
-    class="bg-[#2B2C37] w-[500px] rounded-lg p-6 text-white space-y-5 m-y-10 mx-auto"
+    class="w-[500px] rounded-lg p-6 space-y-5 m-y-10 mx-auto dark:bg-surface-dark bg-surface dark:text-surface text-darkest"
     (click)="$event.stopPropagation()"
   >
     <h2 class="text-xl font-bold">Edit Task</h2>
 
-    <form [formGroup]="form" (ngSubmit)="save()" class="space-y-4">
+    <form
+      [formGroup]="form"
+      (ngSubmit)="save()"
+      class="space-y-4 dark:text-surface text-surface-dark"
+    >
       <div>
-        <label class="text-xs text-gray-300">Title</label>
+        <label class="text-xs text-foreground">Title</label>
         <input
           type="text"
           formControlName="title"
-          class="w-full mt-1 p-2 rounded bg-[#20212C] border border-gray-600"
+          class="w-full mt-1 p-2 rounded dark:bg-dark bg-surface border border-border-dark"
         />
 
         @if (form.controls.title.touched && form.controls.title.invalid) {
-          <p class="text-red-400 text-xs mt-1">Title is required</p>
+          <p class="text-error text-xs mt-1">Title is required</p>
         }
       </div>
 
       <div>
-        <label class="text-xs text-gray-300">Description</label>
+        <label class="text-xs text-foreground">Description</label>
         <textarea
           formControlName="description"
-          class="w-full mt-1 p-2 rounded bg-[#20212C] border border-gray-600"
+          class="w-full mt-1 p-2 rounded dark:bg-dark bg-surface border border-border-dark"
         ></textarea>
 
         @if (form.controls.description.touched && form.controls.description.invalid) {
-          <p class="text-red-400 text-xs mt-1">Description is required</p>
+          <p class="text-error text-xs mt-1">Description is required</p>
         }
       </div>
 
       <div>
-        <label class="text-xs text-gray-300">Status</label>
+        <label class="text-xs text-foreground">Status</label>
         <select
           formControlName="status"
-          class="w-full mt-1 p-2 rounded bg-[#20212C] border border-gray-600"
+          class="w-full mt-1 p-2 rounded dark:bg-dark bg-surface border border-border-dark"
         >
           @for (column of kanbanService.activeBoardSignal().columns; track column.id) {
             <option [value]="column.name">
@@ -46,35 +50,30 @@
       </div>
 
       <div formArrayName="subtasks">
-        <label class="text-xs text-gray-300">Subtasks</label>
+        <label class="text-xs text-foreground">Subtasks</label>
 
-        <!-- @for (subtask of subtasksArray.controls; let i = $index; track i) { -->
         @for (subtask of subtasksArray.controls; let i = $index; track subtask) {
           <div [formGroupName]="i" class="flex gap-2 mt-2">
             <input
               type="text"
               formControlName="title"
-              class="flex-1 p-2 rounded bg-[#20212C] border border-gray-600"
+              class="flex-1 p-2 rounded dark:bg-dark bg-surface border border-border-dark"
             />
 
-            <button
-              type="button"
-              (click)="removeSubtask(i)"
-              class="text-red-400 px-2 cursor-pointer"
-            >
+            <button type="button" (click)="removeSubtask(i)" class="text-error px-2 cursor-pointer">
               X
             </button>
           </div>
 
           @if (subtask.get('title')?.touched && subtask.get('title')?.invalid) {
-            <p class="text-red-400 text-xs">Subtask is required</p>
+            <p class="text-error text-xs">Subtask is required</p>
           }
         }
 
         <button
           type="button"
           (click)="addSubtask()"
-          class="mt-3 text-sm text-purple-400 cursor-pointer"
+          class="mt-3 text-sm text-primary cursor-pointer block"
         >
           + Add Subtask
         </button>
@@ -84,14 +83,14 @@
         <button
           type="button"
           (click)="close()"
-          class="px-4 py-2 bg-gray-600 rounded cursor-pointer"
+          class="px-4 py-2 rounded cursor-pointer text-primary dark:text-secondary-light bg-secondary-light dark:bg-border-dark"
         >
           Cancel
         </button>
 
         <button
           type="submit"
-          class="px-4 py-2 bg-purple-600 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+          class="px-4 py-2 rounded cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-secondary-light bg-primary"
           [disabled]="form.invalid"
         >
           Save Changes

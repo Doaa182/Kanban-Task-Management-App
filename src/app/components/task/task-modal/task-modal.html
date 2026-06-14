@@ -1,15 +1,14 @@
 <div class="fixed inset-0 bg-black/50 flex items-center justify-center" (click)="closeTaskModal()">
   <div
-    class="bg-[#2B2C37] w-96 p-6 rounded-lg text-white"
-    (click)="$event.stopPropagation()"
-    (click)="uiService.closeTaskMenu()"
+    class="w-96 p-6 rounded-lg dark:bg-surface-dark bg-surface dark:text-surface text-darkest"
+    (click)="$event.stopPropagation(); uiService.closeTaskMenu()"
   >
     <div class="flex justify-between items-center">
       <h2 class="text-lg font-bold">{{ task.title }}</h2>
 
-      <div class="relative">
+      <div class="relative shrink-0">
         <button
-          class="cursor-pointer p-2 rounded-sm transition-all hover:bg-[#3E3F4E]"
+          class="cursor-pointer p-2 rounded-sm transition-all dark:hover:bg-border-dark hover:bg-background"
           (click)="uiService.toggleTaskMenu($event)"
         >
           <img src="assets/icon-vertical-ellipsis.svg" alt="vertical-ellipsis-icon" />
@@ -17,17 +16,17 @@
 
         @if (uiService.isTaskMenuOpen()) {
           <div
-            class="absolute right-0 mt-2 w-32 bg-[#2B2C37] border border-gray-600 rounded shadow-lg z-50"
+            class="absolute right-0 mt-2 w-32 dark:bg-surface-dark bg-surface rounded shadow-lg z-50"
           >
             <button
-              class="w-full text-left px-3 py-2 hover:bg-[#3A3B47] text-sm text-white cursor-pointer"
+              class="w-full text-left px-3 py-2 text-sm cursor-pointer dark:hover:bg-border-dark hover:bg-background text-foreground"
               (click)="taskService.openEditTaskModal(task.id)"
             >
               Edit Task
             </button>
 
             <button
-              class="w-full text-left px-3 py-2 hover:bg-red-500/20 text-sm text-red-400 cursor-pointer"
+              class="w-full text-left px-3 py-2 hover:bg-error/20 text-sm text-error cursor-pointer"
               (click)="deleteTaskById(task.id)"
             >
               Delete Task
@@ -37,12 +36,12 @@
       </div>
     </div>
 
-    <p class="text-[#828FA3] mt-3 text-sm">
+    <p class="text-foreground mt-3 text-sm">
       {{ task.description }}
     </p>
 
     <div class="mt-6">
-      <h3 class="text-xs text-[#828FA3]">
+      <h3 class="text-xs text-foreground">
         Subtasks ({{ task.subtasks.filter((s) => s.isCompleted).length }} of
         {{ task.subtasks.length }})
       </h3>
@@ -58,7 +57,7 @@
 
             <span
               [ngClass]="{
-                'line-through text-gray-500': subtask.isCompleted,
+                'line-through text-foreground': subtask.isCompleted,
               }"
             >
               {{ subtask.title }}
@@ -69,10 +68,10 @@
     </div>
 
     <div class="mt-6">
-      <h3 class="text-xs text-[#828FA3] mb-2">Current Status</h3>
+      <h3 class="text-xs text-foreground mb-2">Current Status</h3>
 
       <select
-        class="w-full bg-[#20212C] p-2 rounded text-white"
+        class="w-full p-2 rounded dark:bg-dark bg-surface border border-border-dark"
         (change)="onTaskStatusSelectionChange($event, task.id)"
       >
         @for (column of kanbanService.activeBoardSignal().columns; track column.id) {

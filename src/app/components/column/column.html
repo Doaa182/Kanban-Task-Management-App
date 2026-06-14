@@ -2,7 +2,7 @@
   <div class="flex items-center gap-3 mb-4">
     <span class="w-3 h-3 rounded-full" [style.background-color]="getColumnColor()"></span>
 
-    <h3 class="text-xs text-[#828fa3] uppercase">
+    <h3 class="text-xs text-foreground uppercase">
       {{ column().name }} ({{ column().tasks.length }})
     </h3>
   </div>
@@ -10,14 +10,13 @@
   <div class="flex flex-col gap-4">
     @if (column().tasks.length === 0) {
       <div
-        class="border border-dashed border-[#3E3F4E] rounded-lg p-4 text-center text-[#828fa3]"
+        class="border border-dashed dark:border-border-dark border-secondary rounded-lg p-4 text-center text-foreground"
         (click)="taskService.openAddTaskModal()"
       >
         No tasks yet
       </div>
     } @else {
       @for (task of column().tasks; track task.id) {
-        <!-- <app-task-card [task]="task" (taskClicked)="onTaskClick($event)" /> -->
         <app-task-card [taskId]="task.id" (taskClicked)="onTaskClick($event)" />
       }
     }

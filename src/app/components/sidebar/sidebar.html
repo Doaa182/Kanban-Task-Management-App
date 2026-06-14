@@ -1,39 +1,65 @@
-<aside class="bg-[#2B2C37] flex flex-col pr-3.5 border-e border-[#3E3F4E] h-screen">
-  <img src="assets/logo-light.svg" alt="kanban-logo" class="px-7 pt-8 pb-12" />
-
-  <h2 class="text-[#828fa3] text-xs tracking-widest font-bold uppercase pb-5 px-6">
-    All Boards ({{ kanbanService.boardCountSignal() }})
-  </h2>
-
-  <ul>
-    @for (board of kanbanService.boardsSignal(); track board.id) {
-      <li
-        class="board cursor-pointer flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all text-[#828fa3] hover:text-[#635fc7] hover:bg-[#635fc71a]"
-        [class.active]="board.id === kanbanService.activeBoardIdSignal()"
-        (click)="selectBoardById(board.id)"
-      >
-        <img src="assets/icon-board.svg" alt="board-icon" />
-        <span class="text-xs font-bold p-1.5">
-          {{ board.name }}
-        </span>
-      </li>
+<aside
+  class="bg-surface dark:bg-surface-dark flex flex-col pr-3.5 border-e border-border-light dark:border-border-dark h-screen justify-between text-foreground"
+>
+  <div>
+    @if (uiService.isDarkThemeSignal()) {
+      <img src="assets/logo-light.svg" alt="kanban-light-logo" class="px-7 pt-8 pb-12" />
+    } @else {
+      <img src="assets/logo-dark.svg" alt="kanban-dark-logo" class="px-7 pt-8 pb-12" />
     }
-  </ul>
 
-  <div
-    class="create-board-btn flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all text-[#635fc7] hover:bg-[#635fc71a] cursor-pointer"
-  >
-    <img src="assets/icon-board.svg" alt="board-icon" />
-    <button (click)="boardService.openAddBoardModal()" class="cursor-pointer">
-      + Create New Board
-    </button>
+    <h2 class="text-xs tracking-widest font-bold uppercase pb-5 px-6">
+      All Boards ({{ kanbanService.boardCountSignal() }})
+    </h2>
+
+    <ul>
+      @for (board of kanbanService.boardsSignal(); track board.id) {
+        <li
+          class="board cursor-pointer flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all hover:bg-secondary-light hover:text-primary"
+          [class.active]="board.id === kanbanService.activeBoardIdSignal()"
+          (click)="selectBoardById(board.id)"
+        >
+          <img src="assets/icon-board.svg" alt="board-icon" />
+          <span class="text-xs font-bold p-1.5">
+            {{ board.name }}
+          </span>
+        </li>
+      }
+    </ul>
+
+    <div
+      class="create-board-btn flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all text-primary hover:bg-secondary-light cursor-pointer"
+    >
+      <img src="assets/icon-board.svg" alt="board-icon" />
+      <button (click)="boardService.openAddBoardModal()" class="cursor-pointer">
+        + Create New Board
+      </button>
+    </div>
   </div>
 
-  <div
-    class="flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all text-[#828fa3] hover:text-[#635fc7] hover:bg-[#635fc71a] cursor-pointer rounded-full"
-    (click)="uiService.closeSidebar()"
-  >
-    <img src="assets/icon-hide-sidebar.svg" alt="hide-sidebar" />
-    <button class="cursor-pointer">Hide Sidebar</button>
+  <div>
+    <div
+      class="bg-background dark:bg-dark rounded p-2 w-3/4 mx-6 flex justify-center items-center gap-4"
+    >
+      <img src="assets/icon-light-theme.svg" alt="light-theme" />
+      <div
+        class="bg-primary hover:bg-primary-light rounded-full w-10 h-5 relative py-3 px-1 cursor-pointer"
+        (click)="uiService.toggleTheme()"
+      >
+        <div
+          class="bg-surface rounded-full w-4 h-4 absolute bottom-1/2 translate-y-1/2"
+          [class.left-1]="!uiService.isDarkThemeSignal()"
+          [class.right-1]="uiService.isDarkThemeSignal()"
+        ></div>
+      </div>
+      <img src="assets/icon-dark-theme.svg" alt="dark-theme" />
+    </div>
+    <div
+      class="hide-sidebar-btn flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all hover:bg-secondary-light cursor-pointer rounded-full hover:text-primary mt-2"
+      (click)="uiService.closeSidebar()"
+    >
+      <img src="assets/icon-hide-sidebar.svg" alt="hide-sidebar" />
+      <button class="cursor-pointer">Hide Sidebar</button>
+    </div>
   </div>
 </aside>

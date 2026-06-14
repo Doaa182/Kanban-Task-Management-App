@@ -1,9 +1,14 @@
-<div class="task-card rounded-lg cursor-pointer py-5 px-4 bg-[#2b2c37]" (click)="onTaskClick()">
-  <h4 class="text-white hover:text-[#635FC7] transition-all font-bold text-sm">
+<div
+  class="task-card rounded-lg cursor-pointer py-5 px-4 dark:bg-surface-dark bg-surface hover:-translate-y-1 transition-all"
+  (click)="onTaskClick()"
+>
+  <h4
+    class="dark:text-surface text-darkest dark:hover:text-primary-light hover:text-primary transition-all font-bold text-sm"
+  >
     {{ task()?.title }}
   </h4>
 
-  <p class="text-[#828fa3] mt-2 font-bold text-xs">
+  <p class="text-foreground mt-2 font-bold text-xs">
     {{ completedSubtasksCount() }}
     of
     {{ task()?.subtasks?.length }}

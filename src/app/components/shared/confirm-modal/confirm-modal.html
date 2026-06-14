@@ -1,24 +1,26 @@
 @if (confirmModalService.isConfirmModalOpenSignal()) {
   <div class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-    <div class="bg-[#2B2C37] w-[400px] rounded-lg p-6 text-white space-y-4">
-      <h2 class="text-lg font-bold">
+    <div
+      class="w-[400px] rounded-lg p-6 space-y-4 dark:bg-surface-dark bg-surface dark:text-surface text-darkest"
+    >
+      <h2 class="text-lg font-bold text-error">
         {{ confirmModalService.confirmModalDataSignal()?.title }}
       </h2>
 
-      <p class="text-sm text-gray-300">
+      <p class="text-sm dark:text-secondary-light text-foreground">
         {{ confirmModalService.confirmModalDataSignal()?.message }}
       </p>
 
       <div class="flex justify-end gap-2 pt-4">
         <button
-          class="px-4 py-2 bg-gray-600 rounded cursor-pointer"
+          class="px-4 py-2 rounded cursor-pointer text-primary dark:text-secondary-light bg-secondary-light dark:bg-border-dark"
           (click)="confirmModalService.closeConfirmModal()"
         >
           Cancel
         </button>
 
         <button
-          class="px-4 py-2 bg-red-600 rounded cursor-pointer"
+          class="px-4 py-2 bg-error rounded cursor-pointer text-secondary-light"
           (click)="confirmModalService.confirm()"
         >
           Delete

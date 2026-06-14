@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,12 @@ export class UiService {
 
   //light/dark theme
   isDarkThemeSignal = signal<boolean>(true);
+
+  constructor() {
+    effect(() => {
+      document.documentElement.classList.toggle('dark', this.isDarkThemeSignal());
+    });
+  }
 
   toggleTheme() {
     this.isDarkThemeSignal.update((value) => !value);
