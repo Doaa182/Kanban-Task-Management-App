@@ -42,12 +42,11 @@ export class UiService {
 
   //toast
   toastMsgSignal = signal<string | null>(null);
+  toastMsgTypeSignal = signal<string | null>(null);
 
-  showToast(msg: string) {
+  showToast(msg: string, msgType: string) {
     this.toastMsgSignal.set(msg);
-
-    console.log(msg);
-
+    this.toastMsgTypeSignal.set(msgType);
     setTimeout(() => {
       this.toastMsgSignal.set(null);
     }, 5000);

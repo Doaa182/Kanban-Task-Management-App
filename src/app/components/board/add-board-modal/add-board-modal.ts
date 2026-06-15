@@ -77,6 +77,8 @@ export class AddBoardModal {
     this.close();
     this.form.reset();
     this.columnsArray.clear();
+
+    this.uiService.showToast('Board created successfully.', 'success');
   }
 
   markDuplicateCols(): boolean {

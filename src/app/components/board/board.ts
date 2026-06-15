@@ -49,7 +49,7 @@ export class Board {
 
   deleteCurrentBoard() {
     if (this.kanbanService.boardCountSignal() <= 1) {
-      this.uiService.showToast('You must keep at least one board.');
+      this.uiService.showToast('You must keep at least one board.', 'err');
       return;
     }
 
@@ -69,6 +69,7 @@ export class Board {
       () => {
         this.boardService.deleteBoard(this.currentBoard.id);
         this.boardService.closeEditBoardModal();
+        this.uiService.showToast('Board deleted successfully.', 'success');
       },
     );
   }

@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormArray, FormControl, FormGroup, Validators } fr
 import { KanbanService } from '../../../services/kanban.service';
 import { UpdateTaskDto } from '../../../models/kanban.types';
 import { TaskService } from '../../../services/task.service';
+import { UiService } from '../../../services/ui.service';
 
 @Component({
   selector: 'app-edit-task-modal',
@@ -15,6 +16,7 @@ import { TaskService } from '../../../services/task.service';
 export class EditTaskModal {
   kanbanService = inject(KanbanService);
   taskService = inject(TaskService);
+  uiService = inject(UiService);
 
   task = this.kanbanService.selectedTaskForEditSignal;
 
@@ -86,5 +88,6 @@ export class EditTaskModal {
     this.taskService.updateTask(this.task()!.id, value);
 
     this.close();
+    this.uiService.showToast('Task updated successfully.', 'success');
   }
 }

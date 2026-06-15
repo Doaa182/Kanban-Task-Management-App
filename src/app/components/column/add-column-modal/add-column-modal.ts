@@ -47,5 +47,6 @@ export class AddColumnModal {
     this.colService.addColumn(boardId, columnName);
 
     this.close();
+    this.uiService.showToast('Column added successfully.', 'success');
   }
 }

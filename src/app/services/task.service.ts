@@ -88,7 +88,7 @@ export class TaskService {
     const activeBoard = this.kanbanService.activeBoardSignal();
 
     if (!activeBoard || activeBoard.columns.length === 0) {
-      this.uiService.showToast('You need at least one column before adding a task.');
+      this.uiService.showToast('You need at least one column before adding a task.', 'err');
       return;
     }
 

@@ -126,7 +126,13 @@
   }
 
   @if (uiService.toastMsgSignal()) {
-    <div class="fixed bottom-6 right-6 bg-red text-white px-4 py-2 rounded shadow-lg">
+    <div
+      class="fixed bottom-6 right-6 text-white px-4 py-2 rounded shadow-lg"
+      [ngClass]="{
+        'bg-red': uiService.toastMsgTypeSignal() == 'err',
+        'bg-green-500': !(uiService.toastMsgTypeSignal() == 'err'),
+      }"
+    >
       {{ uiService.toastMsgSignal() }}
     </div>
   }

@@ -4,6 +4,7 @@ import { CreateTaskDto } from '../../../models/kanban.types';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../../services/task.service';
+import { UiService } from '../../../services/ui.service';
 
 @Component({
   selector: 'app-add-task-modal',
@@ -15,6 +16,7 @@ import { TaskService } from '../../../services/task.service';
 export class AddTaskModal {
   kanbanService = inject(KanbanService);
   taskService = inject(TaskService);
+  uiService = inject(UiService);
 
   form = new FormGroup({
     title: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
@@ -68,5 +70,6 @@ export class AddTaskModal {
     this.taskService.addTask(payload);
 
     this.closeAddTaskModal();
+    this.uiService.showToast('Task created successfully.', 'success');
   }
 }

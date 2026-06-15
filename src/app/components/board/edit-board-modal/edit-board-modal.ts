@@ -109,6 +109,7 @@ export class EditBoardModal {
     });
 
     this.closeModal();
+    this.uiService.showToast('Board updated successfully.', 'success');
   }
 
   markDuplicateCols(): boolean {

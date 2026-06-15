@@ -45,12 +45,14 @@ export class TaskModal {
       () => {
         this.taskService.deleteTaskById(taskId);
         this.closeTaskModal();
+        this.uiService.showToast('Task deleted successfully.', 'success');
       },
     );
   }
 
   changeTaskStatus(taskId: string, newStatus: string): void {
     this.taskService.moveTaskToCol(taskId, newStatus);
+    this.uiService.showToast(`Task moved to ${newStatus} successfully.`, 'success');
   }
 
   onTaskStatusSelectionChange(event: Event, taskId: string) {
