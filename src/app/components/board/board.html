@@ -11,14 +11,18 @@
 
     <div class="flex justify-center items-center gap-2">
       <button
-        class="px-6 py-3 rounded-full bg-purple hover:bg-light-purple text-white font-bold transition-all"
+        class="px-6 py-3 rounded-full bg-purple hover:bg-light-purple text-white font-bold transition-all flex items-center justify-center gap-2"
         [ngClass]="{
           'opacity-50 cursor-not-allowed': !kanbanService.canAddTaskSignal(),
           'cursor-pointer': kanbanService.canAddTaskSignal(),
         }"
         (click)="taskService.openAddTaskModal()"
       >
-        + Add New Task
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" class="fill-current">
+          <path d="M7.368 12V7.344H12V4.632H7.368V0H4.656v4.632H0v2.712h4.656V12z" />
+        </svg>
+
+        Add New Task
       </button>
 
       <div class="relative">
@@ -30,7 +34,9 @@
         </button>
 
         @if (uiService.isBoardMenuOpen()) {
-          <div class="absolute right-0 mt-2 w-32 dark:bg-dark-gray bg-white shadow-lg z-50">
+          <div
+            class="absolute right-0 mt-2 w-32 dark:bg-dark-gray bg-white rounded z-50 border-2 border-light-gray dark:border-medium-gray border-b-purple dark:border-b-purple"
+          >
             <button
               class="w-full text-left px-3 py-2 dark:hover:bg-medium-gray hover:bg-off-white text-sm cursor-pointer text-gray transition-all"
               (click)="editCurrentBoard()"
@@ -65,10 +71,13 @@
           </p>
 
           <button
-            class="px-6 py-3 rounded-full bg-purple hover:bg-light-purple text-white cursor-pointer transition-all"
+            class="px-6 py-3 rounded-full bg-purple hover:bg-light-purple text-white cursor-pointer transition-all flex items-center justify-center gap-2"
             (click)="colService.openAddColumnModal()"
           >
-            + New Column
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" class="fill-current">
+              <path d="M7.368 12V7.344H12V4.632H7.368V0H4.656v4.632H0v2.712h4.656V12z" />
+            </svg>
+            New Column
           </button>
         </div>
       } @else {
@@ -77,10 +86,13 @@
         }
 
         <div
-          class="h-screen mt-8 px-20 shrink-0 flex items-center justify-center rounded-lg dark:bg-dark-gray bg-light-lavender text-gray dark:hover:text-light-purple hover:text-purple cursor-pointer transition-all"
+          class="h-screen mt-8 px-16 shrink-0 flex items-center justify-center rounded-lg dark:bg-dark-gray bg-light-lavender text-gray dark:hover:text-light-purple hover:text-purple cursor-pointer transition-all gap-2"
           (click)="colService.openAddColumnModal()"
         >
-          <span class="text-lg font-bold">+ New Column</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" class="fill-current">
+            <path d="M7.368 12V7.344H12V4.632H7.368V0H4.656v4.632H0v2.712h4.656V12z" />
+          </svg>
+          <span class="text-lg font-bold"> New Column</span>
         </div>
       }
     }

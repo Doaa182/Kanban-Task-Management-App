@@ -15,7 +15,9 @@
         </button>
 
         @if (uiService.isTaskMenuOpen()) {
-          <div class="absolute right-0 mt-2 w-32 dark:bg-dark-gray bg-white rounded shadow-lg z-50">
+          <div
+            class="absolute right-0 mt-2 w-32 dark:bg-dark-gray bg-white rounded z-50 border-2 border-light-gray dark:border-medium-gray border-b-purple dark:border-b-purple"
+          >
             <button
               class="w-full text-left px-3 py-2 text-sm cursor-pointer dark:hover:bg-medium-gray hover:bg-off-white text-gray transition-all"
               (click)="taskService.openEditTaskModal(task.id)"

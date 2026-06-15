@@ -40,8 +40,17 @@
               class="flex-1 p-2 rounded border dark:bg-charcoal bg-white border-medium-gray"
             />
 
-            <button type="button" (click)="removeColumn(i)" class="text-red px-2 cursor-pointer">
-              X
+            <button
+              type="button"
+              (click)="removeColumn(i)"
+              class="text-gray hover:text-red px-2 cursor-pointer transition-all"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" class="fill-current">
+                <g fill-rule="evenodd">
+                  <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
+                  <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
+                </g>
+              </svg>
             </button>
           </div>
 
@@ -70,7 +79,9 @@
           type="button"
           (click)="close()"
           class="px-4 py-2 rounded cursor-pointer text-purple dark:text-light-lavender bg-light-lavender hover:bg-lavender dark:bg-medium-gray transition-all"
-        ></button>
+        >
+          Cancel
+        </button>
 
         <button
           type="submit"

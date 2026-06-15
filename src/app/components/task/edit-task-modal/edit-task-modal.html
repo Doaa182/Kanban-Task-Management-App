@@ -56,8 +56,17 @@
               class="flex-1 p-2 rounded dark:bg-charcoal bg-white border border-medium-gray"
             />
 
-            <button type="button" (click)="removeSubtask(i)" class="text-red px-2 cursor-pointer">
-              X
+            <button
+              type="button"
+              (click)="removeSubtask(i)"
+              class="text-gray hover:text-red transition-all px-2 cursor-pointer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" class="fill-current">
+                <g fill-rule="evenodd">
+                  <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
+                  <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
+                </g>
+              </svg>
             </button>
           </div>
 
