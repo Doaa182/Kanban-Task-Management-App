@@ -5,30 +5,25 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* primary */
-  --color-primary: #635fc7;
-  --color-primary-light: #a8a4ff;
+  --color-purple: #635fc7;
+  --color-light-purple: #a8a4ff;
 
-  --color-secondary: #d8d7f1;
-  --color-secondary-light: #f0effa;
+  --color-mostly-black: #000112;
+  --color-charcoal: #20212c;
 
-  /* bg */
-  --color-background: #f4f7fd;
-  --color-surface: #ffffff;
+  --color-dark-gray: #2b2c37;
+  --color-medium-gray: #3e3f4e;
+  --color-gray: #828fa3;
+  --color-light-gray: #e4ebfa;
+  --color-off-white: #f4f7fd;
 
-  /* dark bg */
-  --color-surface-dark: #2b2c37;
-  --color-border-dark: #3e3f4e;
+  --color-red: #ea5555;
+  --color-light-red: #ff9898;
 
-  /* txt */
-  --color-foreground: #828fa3;
-  --color-border-light: #e4ebfa;
+  --color-lavender: #d8d7f1;
+  --color-light-lavender: #f0effa;
+}
 
-  /* err */
-  --color-error: #ea5555;
-  --color-error-light: #ff9898;
-
-  /* */
-  --color-darkest: #000112;
-  --color-dark: #20212c;
+* {
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }

@@ -1,45 +1,45 @@
-<section class="dark:bg-dark bg-background h-full flex flex-col text-darkest dark:text-surface">
+<section class="dark:bg-charcoal bg-off-white h-full flex flex-col">
   <div
-    class="bg-surface dark:bg-surface-dark h-24 flex items-center justify-between px-8 border-b border-border-light dark:border-border-dark"
+    class="bg-white dark:bg-dark-gray h-24 flex items-center justify-between px-8 border-b border-light-gray dark:border-medium-gray"
     (click)="uiService.closeBoardMenu()"
   >
     @if (kanbanService.activeBoardSignal(); as activeBoard) {
-      <h2 class="text-2xl">
+      <h2 class="text-2xl text-mostly-black dark:text-white font-extrabold">
         {{ activeBoard.name }}
       </h2>
     }
 
     <div class="flex justify-center items-center gap-2">
       <button
-        class="px-6 py-3 rounded-full bg-primary hover:bg-primary-light text-surface"
+        class="px-6 py-3 rounded-full bg-purple hover:bg-light-purple text-white font-bold transition-all"
         [ngClass]="{
           'opacity-50 cursor-not-allowed': !kanbanService.canAddTaskSignal(),
           'cursor-pointer': kanbanService.canAddTaskSignal(),
         }"
         (click)="taskService.openAddTaskModal()"
       >
-        + Add Task
+        + Add New Task
       </button>
 
       <div class="relative">
         <button
-          class="cursor-pointer p-2 rounded-sm transition-all dark:hover:bg-border-dark hover:bg-background"
+          class="cursor-pointer p-2 rounded-sm transition-all dark:hover:bg-medium-gray hover:bg-off-white"
           (click)="uiService.toggleBoardMenu($event)"
         >
           <img src="assets/icon-vertical-ellipsis.svg" alt="vertical-ellipsis-icon" />
         </button>
 
         @if (uiService.isBoardMenuOpen()) {
-          <div class="absolute right-0 mt-2 w-32 dark:bg-surface-dark bg-surface shadow-lg z-50">
+          <div class="absolute right-0 mt-2 w-32 dark:bg-dark-gray bg-white shadow-lg z-50">
             <button
-              class="w-full text-left px-3 py-2 dark:hover:bg-border-dark hover:bg-background text-sm cursor-pointer text-foreground"
+              class="w-full text-left px-3 py-2 dark:hover:bg-medium-gray hover:bg-off-white text-sm cursor-pointer text-gray transition-all"
               (click)="editCurrentBoard()"
             >
               Edit Board
             </button>
 
             <button
-              class="w-full text-left px-3 py-2 hover:bg-error/20 text-sm text-error cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              class="w-full text-left px-3 py-2 hover:bg-red/20 text-sm text-red cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               (click)="deleteCurrentBoard()"
               [ngClass]="{
                 'opacity-50 cursor-not-allowed': kanbanService.boardCountSignal() <= 1,
@@ -57,13 +57,15 @@
   <div class="flex gap-6 p-6 overflow-x-auto flex-1 overflow-y-auto">
     @if (kanbanService.activeBoardSignal(); as activeBoard) {
       @if (activeBoard.columns.length === 0) {
-        <div class="flex flex-col items-center justify-center w-full text-center text-foreground">
+        <div
+          class="flex flex-col items-center justify-center w-full text-center text-gray font-bold"
+        >
           <p class="text-lg font-medium mb-4">
             This board is empty. Create a new column to get started.
           </p>
 
           <button
-            class="px-6 py-3 rounded-full bg-primary hover:bg-primary-light text-surface cursor-pointer"
+            class="px-6 py-3 rounded-full bg-purple hover:bg-light-purple text-white cursor-pointer transition-all"
             (click)="colService.openAddColumnModal()"
           >
             + New Column
@@ -75,7 +77,7 @@
         }
 
         <div
-          class="h-screen mt-8 px-20 shrink-0 flex items-center justify-center rounded-lg dark:bg-surface-dark bg-secondary-light text-foreground dark:hover:text-primary-light hover:text-primary cursor-pointer transition"
+          class="h-screen mt-8 px-20 shrink-0 flex items-center justify-center rounded-lg dark:bg-dark-gray bg-light-lavender text-gray dark:hover:text-light-purple hover:text-purple cursor-pointer transition-all"
           (click)="colService.openAddColumnModal()"
         >
           <span class="text-lg font-bold">+ New Column</span>
@@ -112,7 +114,7 @@
   }
 
   @if (uiService.toastMsgSignal()) {
-    <div class="fixed bottom-6 right-6 bg-error text-surface px-4 py-2 rounded shadow-lg">
+    <div class="fixed bottom-6 right-6 bg-red text-white px-4 py-2 rounded shadow-lg">
       {{ uiService.toastMsgSignal() }}
     </div>
   }

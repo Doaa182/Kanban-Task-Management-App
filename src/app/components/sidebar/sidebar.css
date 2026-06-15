@@ -1,6 +1,6 @@
 .active {
-  background: var(--color-primary);
-  color: var(--color-surface);
+  background: var(--color-purple);
+  color: var(--color-white);
   border-radius: 0 100px 100px 0;
   -webkit-border-radius: 0 100px 100px 0;
   -moz-border-radius: 0 100px 100px 0;

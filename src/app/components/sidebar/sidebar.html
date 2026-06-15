@@ -1,5 +1,5 @@
 <aside
-  class="bg-surface dark:bg-surface-dark flex flex-col pr-3.5 border-e border-border-light dark:border-border-dark h-screen justify-between text-foreground"
+  class="bg-white dark:bg-dark-gray flex flex-col pr-3.5 border-e border-light-gray dark:border-medium-gray h-screen justify-between text-gray"
 >
   <div>
     @if (uiService.isDarkThemeSignal()) {
@@ -15,7 +15,7 @@
     <ul>
       @for (board of kanbanService.boardsSignal(); track board.id) {
         <li
-          class="board cursor-pointer flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all hover:bg-secondary-light hover:text-primary"
+          class="board cursor-pointer flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all hover:bg-light-lavender hover:text-purple"
           [class.active]="board.id === kanbanService.activeBoardIdSignal()"
           (click)="selectBoardById(board.id)"
         >
@@ -28,7 +28,7 @@
     </ul>
 
     <div
-      class="create-board-btn flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all text-primary hover:bg-secondary-light cursor-pointer"
+      class="create-board-btn flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all text-purple hover:bg-light-lavender cursor-pointer"
     >
       <img src="assets/icon-board.svg" alt="board-icon" />
       <button (click)="boardService.openAddBoardModal()" class="cursor-pointer">
@@ -39,15 +39,15 @@
 
   <div>
     <div
-      class="bg-background dark:bg-dark rounded p-2 w-3/4 mx-6 flex justify-center items-center gap-4"
+      class="bg-off-white dark:bg-charcoal rounded p-2 w-3/4 mx-6 flex justify-center items-center gap-4"
     >
       <img src="assets/icon-light-theme.svg" alt="light-theme" />
       <div
-        class="bg-primary hover:bg-primary-light rounded-full w-10 h-5 relative py-3 px-1 cursor-pointer"
+        class="bg-purple hover:bg-light-purple rounded-full w-10 h-5 relative py-3 px-1 cursor-pointer transition-all"
         (click)="uiService.toggleTheme()"
       >
         <div
-          class="bg-surface rounded-full w-4 h-4 absolute bottom-1/2 translate-y-1/2"
+          class="bg-white rounded-full w-4 h-4 absolute bottom-1/2 translate-y-1/2"
           [class.left-1]="!uiService.isDarkThemeSignal()"
           [class.right-1]="uiService.isDarkThemeSignal()"
         ></div>
@@ -55,7 +55,7 @@
       <img src="assets/icon-dark-theme.svg" alt="dark-theme" />
     </div>
     <div
-      class="hide-sidebar-btn flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all hover:bg-secondary-light cursor-pointer rounded-full hover:text-primary mt-2"
+      class="hide-sidebar-btn flex items-center gap-3.5 py-3.5 px-6 text-sm font-bold text-left transition-all hover:bg-light-lavender cursor-pointer rounded-full hover:text-purple mt-2 "
       (click)="uiService.closeSidebar()"
     >
       <img src="assets/icon-hide-sidebar.svg" alt="hide-sidebar" />

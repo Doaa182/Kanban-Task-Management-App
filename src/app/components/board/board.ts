@@ -39,7 +39,6 @@ export class Board {
   uiService = inject(UiService);
   confirmModalService = inject(ConfirmModalService);
 
-  // currentBoard = this.kanbanService.activeBoardSignal();
   get currentBoard() {
     return this.kanbanService.activeBoardSignal();
   }

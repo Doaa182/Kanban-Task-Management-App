@@ -1,3 +1,12 @@
 .task-card {
   box-shadow: 0 4px 6px #364e7e1a;
+  border: 2px solid transparent;
+}
+
+.task-card:hover {
+  border: 2px solid var(--color-purple);
+}
+
+.task-card:hover h4 {
+  color: var(--color-purple);
 }
