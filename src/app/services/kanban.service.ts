@@ -32,9 +32,6 @@ export class KanbanService {
   }
 
   //board
-  // boardsSignal = signal<BoardType[]>(SAMPLE_DATA.boards);
-  // activeBoardIdSignal = signal<string>(this.boardsSignal()[0].id);
-
   boardsSignal = signal<BoardType[]>([]);
   activeBoardIdSignal = signal<string>('');
 

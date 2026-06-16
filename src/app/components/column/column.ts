@@ -4,11 +4,12 @@ import { TaskType } from '../../models/kanban.types';
 import { TaskCard } from '../task/task-card/task-card';
 import { KanbanService } from '../../services/kanban.service';
 import { TaskService } from '../../services/task.service';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-column',
   standalone: true,
-  imports: [CommonModule, TaskCard],
+  imports: [CommonModule, TaskCard, DragDropModule],
   templateUrl: './column.html',
   styleUrl: './column.css',
 })
@@ -35,5 +36,25 @@ export class Column {
     const columnIndex = columns.findIndex((column) => column.id === this.columnId);
 
     return this.columnColors[columnIndex % this.columnColors.length];
+  }
+
+  onDrop(event: CdkDragDrop<any>) {
+    if (event.previousContainer === event.container) {
+      this.taskService.reorderTasks(this.columnId, event.previousIndex, event.currentIndex);
+
+      return;
+    }
+
+    const task = event.item.data;
+    const targetColumn = this.column();
+
+    this.taskService.moveTaskToCol(task.id, targetColumn.name);
+  }
+
+  getConnectedLists(): string[] {
+    const board = this.kanbanService.activeBoardSignal();
+    if (!board) return [];
+
+    return board.columns.map((c) => c.id);
   }
 }

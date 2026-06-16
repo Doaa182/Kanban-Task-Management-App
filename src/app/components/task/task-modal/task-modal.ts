@@ -54,7 +54,7 @@ export class TaskModal {
     this.taskService.moveTaskToCol(taskId, newStatus);
     this.uiService.showToast(`Task moved to ${newStatus} successfully.`, 'success');
   }
-
+ 
   onTaskStatusSelectionChange(event: Event, taskId: string) {
     const selectedStatus = (event.target as HTMLSelectElement).value;
     this.changeTaskStatus(taskId, selectedStatus);

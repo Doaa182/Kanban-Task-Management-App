@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { KanbanService } from './kanban.service';
 import { CreateTaskDto, TaskType, UpdateTaskDto } from '../models/kanban.types';
 import { UiService } from './ui.service';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Injectable({
   providedIn: 'root',
@@ -59,31 +60,64 @@ export class TaskService {
     const boards = this.kanbanService.boardsSignal();
 
     const updatedBoards = boards.map((board) => {
-      const taskToMove = board.columns
-        .flatMap((col) => col.tasks)
-        .find((task) => task.id === taskId);
+      let movedTask: TaskType | null = null;
 
-      if (!taskToMove) return board;
+      const cleanedColumns = board.columns.map((col) => {
+        const task = col.tasks.find((t) => t.id === taskId);
+        if (task) movedTask = task;
 
-      const updatedColumns = board.columns.map((col) => ({
-        ...col,
-        tasks: col.tasks.filter((task) => task.id !== taskId),
-      }));
+        return {
+          ...col,
+          tasks: col.tasks.filter((t) => t.id !== taskId),
+        };
+      });
+
+      if (!movedTask) return board;
 
       return {
         ...board,
-        columns: updatedColumns.map((col) =>
-          col.name === targetColName
-            ? { ...col, tasks: [...col.tasks, { ...taskToMove, status: targetColName }] }
-            : col,
-        ),
+        columns: cleanedColumns.map((col) => {
+          if (col.name !== targetColName) return col;
+
+          return {
+            ...col,
+            tasks: [
+              ...col.tasks,
+              {
+                ...movedTask!,
+                status: targetColName,
+              },
+            ],
+          };
+        }),
       };
     });
 
     this.kanbanService.boardsSignal.set(updatedBoards);
+
+    console.log('moveTaskToCol:', taskId, targetColName);
   }
 
-  //add new task
+  reorderTasks(columnId: string, previousIndex: number, currentIndex: number) {
+    const updatedBoards = this.kanbanService.boardsSignal().map((board) => ({
+      ...board,
+      columns: board.columns.map((col) => {
+        if (col.id !== columnId) return col;
+
+        const tasks = [...col.tasks];
+
+        moveItemInArray(tasks, previousIndex, currentIndex);
+
+        return {
+          ...col,
+          tasks,
+        };
+      }),
+    }));
+
+    this.kanbanService.boardsSignal.set(updatedBoards);
+  }
+
   openAddTaskModal() {
     const activeBoard = this.kanbanService.activeBoardSignal();
 

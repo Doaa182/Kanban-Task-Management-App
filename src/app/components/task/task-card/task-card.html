@@ -1,4 +1,6 @@
 <div
+  cdkDrag
+  [cdkDragData]="task()"
   class="task-card rounded-lg cursor-pointer py-5 px-4 dark:bg-dark-gray bg-white hover:-translate-y-1 transition-all"
   (click)="onTaskClick()"
 >

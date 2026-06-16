@@ -2,11 +2,12 @@ import { Component, Input, computed, EventEmitter, Output, inject } from '@angul
 import { CommonModule } from '@angular/common';
 import { TaskType } from '../../../models/kanban.types';
 import { KanbanService } from '../../../services/kanban.service';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-task-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DragDropModule],
   templateUrl: './task-card.html',
   styleUrl: './task-card.css',
 })
