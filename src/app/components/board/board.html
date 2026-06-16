@@ -3,8 +3,29 @@
     class="bg-white dark:bg-dark-gray h-24 flex items-center justify-between px-8 border-b border-light-gray dark:border-medium-gray"
     (click)="uiService.closeBoardMenu()"
   >
+    <button class="flex items-center gap-2 md:hidden" (click)="uiService.toggleMobileSidebar()">
+      <img src="assets/logo-mobile.svg" alt="logo" />
+
+      @if (kanbanService.activeBoardSignal(); as activeBoard) {
+        <h2 class="text-lg md:text-2xl text-mostly-black dark:text-white font-extrabold truncate">
+          {{ activeBoard.name }}
+        </h2>
+      }
+
+      <img
+        [src]="
+          uiService.isMobileSidebarOpenSignal()
+            ? 'assets/icon-chevron-up.svg'
+            : 'assets/icon-chevron-down.svg'
+        "
+        alt="chevron"
+      />
+    </button>
+
     @if (kanbanService.activeBoardSignal(); as activeBoard) {
-      <h2 class="text-2xl text-mostly-black dark:text-white font-extrabold">
+      <h2
+        class="text-lg md:text-2xl text-mostly-black dark:text-white font-extrabold truncate hidden md:block"
+      >
         {{ activeBoard.name }}
       </h2>
     }
@@ -22,12 +43,12 @@
           <path d="M7.368 12V7.344H12V4.632H7.368V0H4.656v4.632H0v2.712h4.656V12z" />
         </svg>
 
-        Add New Task
+        <span class="hidden md:inline"> Add New Task </span>
       </button>
 
       <div class="relative">
         <button
-          class="cursor-pointer p-2 rounded-sm transition-all dark:hover:bg-medium-gray hover:bg-off-white"
+          class="cursor-pointer p-2 rounded-sm transition-all dark:hover:bg-medium-gray hover:bg-off-white shrink-0"
           (click)="uiService.toggleBoardMenu($event)"
         >
           <img src="assets/icon-vertical-ellipsis.svg" alt="vertical-ellipsis-icon" />
@@ -127,7 +148,7 @@
 
   @if (uiService.toastMsgSignal()) {
     <div
-      class="fixed bottom-6 right-6 text-white px-4 py-2 rounded shadow-lg"
+      class="fixed bottom-6 right-6 text-white px-4 py-2 rounded shadow-lg md:text-base text-xs"
       [ngClass]="{
         'bg-red': uiService.toastMsgTypeSignal() == 'err',
         'bg-green-500': !(uiService.toastMsgTypeSignal() == 'err'),

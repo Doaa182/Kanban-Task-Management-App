@@ -19,6 +19,22 @@ export class UiService {
     this.isSidebarOpenSignal.set(false);
   }
 
+  //sidebar (mobile screen)
+
+  isMobileSidebarOpenSignal = signal(false);
+
+  toggleMobileSidebar() {
+    this.isMobileSidebarOpenSignal.update((value) => !value);
+  }
+
+  openMobileSidebar() {
+    this.isMobileSidebarOpenSignal.set(true);
+  }
+
+  closeMobileSidebar() {
+    this.isMobileSidebarOpenSignal.set(false);
+  }
+
   //light/dark theme
   isDarkThemeSignal = signal<boolean>(true);
 

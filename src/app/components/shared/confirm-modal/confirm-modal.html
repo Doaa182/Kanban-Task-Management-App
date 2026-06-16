@@ -1,7 +1,7 @@
 @if (confirmModalService.isConfirmModalOpenSignal()) {
   <div class="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
     <div
-      class="w-[400px] rounded-lg p-6 space-y-4 dark:bg-dark-gray bg-white dark:text-white text-mostly-black"
+      class="w-full md:w-10/12 lg:w-1/3 rounded-lg p-6 space-y-4 dark:bg-dark-gray bg-white dark:text-white text-mostly-black"
     >
       <h2 class="text-lg font-bold text-red">
         {{ confirmModalService.confirmModalDataSignal()?.title }}

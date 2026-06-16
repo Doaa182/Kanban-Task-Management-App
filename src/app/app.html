@@ -1,13 +1,26 @@
 <div class="flex overflow-hidden h-screen">
-  @if (uiService.isSidebarOpenSignal()) {
-    <app-sidebar class="w-72 shrink-0"></app-sidebar>
-  } @else {
-    <button
-      class="fixed left-0 bottom-8 bg-purple hover:bg-light-purple px-5 py-4 rounded-r-full cursor-pointer z-50 transition-all"
-      (click)="uiService.openSidebar()"
-    >
-      <img src="assets/icon-show-sidebar.svg" alt="show-sidebar" />
-    </button>
+  <div class="hidden md:block">
+    @if (uiService.isSidebarOpenSignal()) {
+      <app-sidebar class="w-72 shrink-0"></app-sidebar>
+    } @else {
+      <button
+        class="fixed left-0 bottom-8 bg-purple hover:bg-light-purple px-5 py-4 rounded-r-full cursor-pointer z-50 transition-all hidden md:block"
+        (click)="uiService.openSidebar()"
+      >
+        <img src="assets/icon-show-sidebar.svg" alt="show-sidebar" />
+      </button>
+    }
+  </div>
+
+  @if (uiService.isMobileSidebarOpenSignal()) {
+    <div class="fixed inset-0 bg-black/60 z-50" (click)="uiService.closeMobileSidebar()">
+      <div
+        class="w-9/12 bg-white dark:bg-dark-gray rounded-lg mt-20 mx-auto py-10 overflow-auto"
+        (click)="$event.stopPropagation()"
+      >
+        <app-sidebar />
+      </div>
+    </div>
   }
 
   <main class="flex-1 overflow-x-auto">
