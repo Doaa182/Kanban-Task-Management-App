@@ -39,7 +39,7 @@ export class UiService {
   isDarkThemeSignal = signal<boolean>(true);
 
   constructor() {
-    const storedTheme = localStorage.getItem('last theme');
+    const storedTheme = localStorage.getItem('last-theme');
 
     if (storedTheme) {
       this.isDarkThemeSignal.set(storedTheme === 'dark');
@@ -48,7 +48,7 @@ export class UiService {
     effect(() => {
       document.documentElement.classList.toggle('dark', this.isDarkThemeSignal());
 
-      localStorage.setItem('last theme', this.isDarkThemeSignal() ? 'dark' : 'light');
+      localStorage.setItem('last-theme', this.isDarkThemeSignal() ? 'dark' : 'light');
     });
   }
 

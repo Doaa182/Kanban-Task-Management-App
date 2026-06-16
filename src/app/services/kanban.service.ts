@@ -1,4 +1,4 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, effect, signal } from '@angular/core';
 import { SAMPLE_DATA } from '../data/sample-data';
 import { BoardType } from '../models/kanban.types';
 
@@ -6,9 +6,38 @@ import { BoardType } from '../models/kanban.types';
   providedIn: 'root',
 })
 export class KanbanService {
+  constructor() {
+    const storedData = localStorage.getItem('kanban-data');
+
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+
+      this.boardsSignal.set(parsedData.boards ?? []);
+      this.activeBoardIdSignal.set(parsedData.activeBoardId ?? this.boardsSignal()[0]?.id);
+    } else {
+      this.boardsSignal.set(SAMPLE_DATA.boards);
+      this.activeBoardIdSignal.set(SAMPLE_DATA.boards[0].id);
+    }
+
+    effect(() => {
+      if (!this.boardsSignal().length) return;
+
+      const kanbanData = {
+        boards: this.boardsSignal(),
+        activeBoardId: this.activeBoardIdSignal(),
+      };
+
+      localStorage.setItem('kanban-data', JSON.stringify(kanbanData));
+    });
+  }
+
   //board
-  boardsSignal = signal<BoardType[]>(SAMPLE_DATA.boards);
-  activeBoardIdSignal = signal<string>(this.boardsSignal()[0].id);
+  // boardsSignal = signal<BoardType[]>(SAMPLE_DATA.boards);
+  // activeBoardIdSignal = signal<string>(this.boardsSignal()[0].id);
+
+  boardsSignal = signal<BoardType[]>([]);
+  activeBoardIdSignal = signal<string>('');
+
   isAddBoardModalOpenSignal = signal<boolean>(false);
   isEditBoardModalOpenSignal = signal<boolean>(false);
   selectedBoardIdForEditSignal = signal<string | null>(null);
