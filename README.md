@@ -1,59 +1,78 @@
-# KanbanTaskManagementApp
+# 📋 Kanban Task Management Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.11.
+A responsive task management application built with modern Angular, with full CRUD functionality for boards, columns, tasks, and subtasks with reactive form validation. Implemented drag-and-drop task management using Angular CDK, enabling task reordering and movement across columns. Enhanced the user experience with reusable toast notifications, modals, and smooth light/dark mode switching.
 
-## Development server
+---
 
-To start a local development server, run:
+## 💡 Key Features
 
-```bash
-ng serve
-```
+🟣 Built using modern Angular with Standalone Components, Angular Signals, and Computed Signals for reactive state management and automatic UI updates.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+🟣 Implemented full CRUD operations (Create, Read, Update, Delete) for boards, columns, tasks, and subtasks.
 
-## Code scaffolding
+🟣 Integrated Angular CDK Drag & Drop to reorder tasks within columns and move tasks across different workflow stages.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+🟣 Implemented Reactive Forms with validation for creating and editing boards, columns, tasks, and subtasks.
 
-```bash
-ng generate component component-name
-```
+🟣 Added dynamic subtask management with real-time completion tracking.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+🟣 Created reusable confirmation modals for deleting boards, columns, and tasks.
 
-```bash
-ng generate --help
-```
+🟣 Added reusable toast notifications to provide instant feedback for user actions.
 
-## Building
+🟣 Built a fully responsive interface optimized for mobile, tablet, and desktop devices.
 
-To build the project run:
+🟣 Implemented light and dark theme support with smooth theme switching.
 
-```bash
-ng build
-```
+🟣 Organized application logic using reusable services and centralized state management.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 🛠️ Tech Stack
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+- Angular
+- TypeScript
+- Angular CDK
+- Tailwind CSS
+- HTML5
+- CSS3
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
+## 🔑 Key Concepts
 
-For end-to-end (e2e) testing, run:
+- Standalone Components
+- Angular Signals & Computed Signals
+- Dependency Injection (DI)
+- Services
+- Reactive Forms
+- Form Validation
+- Component Communication
+- CRUD Operations
+- Angular CDK Drag & Drop
+- Conditional Rendering
+- Data Binding
+- Responsive Design
 
-```bash
-ng e2e
-```
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 💻 GitHub Repo & Live Demo
 
-## Additional Resources
+🔗 **GitHub Repo:** [Kanban Task Management App](https://github.com/Doaa182/Kanban-Task-Management-App)  
+🌐 **Live Demo:** [View on Vercel](https://kanban-task-management-app-sigma.vercel.app/)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+## 👩‍💻 Author
+
+**Doaa Diaa El Din**
+
+🔗 GitHub: https://github.com/Doaa182
+
+---
+
+## 📸 Screenshot
+
+<img src="./public/screenshot.png" alt="Kanban Task Management App Mockup" width="600">
+
+---
